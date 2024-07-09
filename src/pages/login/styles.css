@@ -1,0 +1,31 @@
+.input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 5px;
+  }
+  
+  .icon {
+    margin-right: 5px;
+    margin-left: 3px;
+    color: #aaa;
+  }
+  
+  .input-with-icon {
+    border: none;
+    outline: none;
+    flex: 1;
+  }
+  
+  .input-with-icon::placeholder {
+    color: #aaa;
+  }
+
+.bt-login{
+    background-color: #014ba0;
+}
+.bt-login:hover{
+    background-color: #0101b5;
+    box-shadow: 0 0 0 4px #0101b5
+}

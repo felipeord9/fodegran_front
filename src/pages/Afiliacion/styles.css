@@ -1,0 +1,35 @@
+.fecha{
+    width: 50%;
+}
+.border-cambio{
+    border-inline-end: 2px solid black;
+}
+.nu-ide{
+    width: 100%;
+}
+.tipo-ide{
+    width: 100%;
+}
+.fecha-soli{
+    width: 50%;
+}
+
+@media screen and (max-width: 1060px) {
+    .fecha{
+        width: 100%;
+    }
+    .border-cambio{
+        border-inline-end:none;
+        border-block-end: 2px solid black;
+        width: 100%;
+    }
+    .nu-ide{
+        width: 75%;
+    }
+    .tipo-ide{
+        width: 50%;
+    }
+    .fecha-soli{
+        width: 75%;
+    }
+}

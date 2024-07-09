@@ -1,0 +1,51 @@
+.center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo-soli{
+    display: flex;
+    flex-direction: column;
+}
+
+.info-funcionario{
+    display: flex;
+    flex-direction: row;
+}
+
+.bt-envio{
+    background-color: green;
+}
+.bt-envio:hover{
+    background-color: #0101b5;
+    box-shadow: 0 0 0 4px #0101b5
+}
+
+.logo-compressed{
+    display: none;
+}
+
+.soli{
+    padding: 35px;
+}
+
+@media screen and (max-width: 1060px) {
+    .logo-soli{
+        display: none;
+    }
+    .info-funcionario{
+        display: flex;
+        flex-direction: column;
+    }
+    .soli{
+        padding: 5px;
+    }
+    .logo-compressed{
+        padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+}
