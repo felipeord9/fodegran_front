@@ -1,11 +1,64 @@
-import { useState } from "react";
+import { useState , useRef } from "react";
 import Logo2 from '../../assets/fodegran2.jpeg';
 import EstadoCivil from "../../components/estadoCivil";
 import NivelEscolar from "../../components/nivelEscolar";
 import Navbar from "../../components/Navbar";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { FaFileDownload } from "react-icons/fa";
+import TableHijos from "../../components/TableHijos";
 import './styles.css';
 
 export default function Afiliacion (){
+    /* descargar contenido */
+    const contentRef = useRef();
+
+    const handleDownloadWord = () => {
+        const content = contentRef.current.innerHTML;
+        
+        // Crear una estructura de documento HTML básica
+        const html = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Documento Word</title>
+          </head>
+          <body>
+            ${content}
+          </body>
+          </html>
+        `;
+    
+        // Crear un blob a partir del contenido HTML
+        const blob = new Blob(['\ufeff', html], {
+          type: 'application/msword'
+        });
+    
+        // Crear un enlace temporal para descargar el archivo
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'content.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    const handleDownloadPDF = async () => {
+        const content = contentRef.current;
+        const canvas = await html2canvas(content);
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('content.pdf');
+    };
+    
+
     /* variables */
     const [tipoAfiliacion, setTipoAfiliacion] = useState('')
     const [fechaSolicitud, setFechaSolicitud] = useState('')
@@ -67,14 +120,23 @@ export default function Afiliacion (){
         } 
       };
 
+    /* constantes para las filas */
+    const [Hijos, setHijos] = useState([
+        { id: 1, nombre: '', fechaNacimiento: '', edad: '', nivelEducativo: '' },
+        { id: 2, nombre: '', fechaNacimiento: '', edad: '', nivelEducativo: '' },
+        { id: 3, nombre: '', fechaNacimiento: '', edad: '', nivelEducativo: '' },
+        { id: 4, nombre: '', fechaNacimiento: '', edad: '', nivelEducativo: '' },
+        { id: 5, nombre: '', fechaNacimiento: '', edad: '', nivelEducativo: '' }
+    ]);
+
     return(
-        <div>
+        <div className="">
             <div className="d-flex w-100">
                 <Navbar />
             </div>
-        <div>
+        <div ref={contentRef} className="" id="content">
             <div style={{height:62}}></div>
-            <div className="container">
+            <div className="container ">
                 <div className="row">
                     <div className="col col-12 col-lg-3 col-md-12" style={{border: '2px solid black'}}>
                         <img src={Logo2} className="w-100" style={{height:70}}></img>
@@ -82,18 +144,25 @@ export default function Afiliacion (){
                     <div className="col col-12 col-lg-6 col-md-12 d-flex justify-content-center text-align-center align-items-center" style={{border: '2px solid black'}}>
                         <h3 className="fw-bold">FORMULARIO UNICO DE AFILIACION</h3>
                     </div>
-                    <div className="col col-12 col-lg-3 col-md-12 " style={{border: '2px solid black'}}>
+                    <div className="col col-12 col-lg-3 col-md-12 d-flex flex-row " style={{border: '2px solid black'}}>
                         <div className="d-flex flex-column w-100 p-0 m-0">
                             <h6 className="m-0 mb-1 p-0 w-100" >VERSION 001</h6>
                             <h6 className="m-0 mb-1 p-0 w-100" >FECHA: {new Date().toLocaleDateString()}</h6>
                             <h6 className="m-0 mb-1 p-0 w-100" >CODIGO: FUA - 001</h6>
                         </div>
+                        <button 
+                            className="boton-cancel m-2 d-flex flex-row justify-content-center align-items-center" 
+                            onClick={handleDownloadPDF}
+                        ><FaFileDownload className="me-1" /> PDF</button>
+                        {/* <button className="btn btn-success" onClick={handleDownloadWord}>WORD</button> */}
                     </div>
                 </div>
             </div>
             <div className="container d-flex flex-column justify-content-center text-align-center align-items-center" style={{border:'2px solid black'}}>
                 <h4 className="mb-0 fw-bold mb-2">FONDE DE EMPLEADOS DEL GRAN LANGOSTINO - FODEGRAN</h4>
-                <h5 className="mb-1">Oficina: Avenida 6 Norte No. 28 Norte - 45     Tels. 324 255 9322</h5>
+                <div>
+                    <h5 className="mb-1">Oficina: Calle 13 # 32 - 417, Bodega 4, Acopi Yumbo     Tels. 324 255 9322</h5>
+                </div>
                 <div className="d-flex fecha">
                     <h5 className="d-flex flex-row fecha-soli ">Fecha de solicitud</h5>
                     <input className="form-control form-control-sm w-50 ms-4" onChange={(e)=>setFechaSolicitud(e)} type="date"/>
@@ -168,7 +237,7 @@ export default function Afiliacion (){
             {/* Nacionalidad */}
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
-                    <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
+                    <div className="col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1">
                         <h6 className="mt-1 me-1 ms-1">Nacionalidad:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
@@ -184,15 +253,6 @@ export default function Afiliacion (){
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
                         <h6 className="mt-1 me-1 w-50 ms-1">Ciudad de nacimiento:</h6>
                         <input className="form-control form-control-sm nu-ide" style={{backgroundColor:'whitesmoke'}} type="number"/>
-                    </div>
-                </div>
-            </div>
-            {/* Estado civil */}
-            <div className="container p-0" style={{border:'2px solid black'}}>
-                <div className="row w-100">
-                    <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Fecha de nacimiento:</h6>
-                        <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="date"/>
                     </div>
                 </div>
             </div>
@@ -235,7 +295,7 @@ export default function Afiliacion (){
             {/* Celular y correo */}
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
-                    <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
+                    <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
                         <h6 className="mt-1 me-1 ms-1">Celular:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
@@ -348,7 +408,7 @@ export default function Afiliacion (){
             {/* Numero y correo */}
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
-                    <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
+                    <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
                         <h6 className="mt-1 me-1 ms-1">Celular:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
@@ -389,7 +449,13 @@ export default function Afiliacion (){
                 </div>
             </div>
             {/* Nombre, fecha nacimiento, edad y nivel educativo de hijos */}
-            
+            <div className="container p-0" style={{border:'2px solid black'}}>
+                <div className="row w-100">
+                    <div className="col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
+                        <TableHijos rows={Hijos} setRows={setHijos}/>
+                    </div>
+                </div>
+            </div>
         </div>
         </div>
     )

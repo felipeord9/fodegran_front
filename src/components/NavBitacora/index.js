@@ -10,23 +10,12 @@ import "./styles.css";
 
 export default function NavBitacora() {
   const { isLogged, logout } = useUser();
+  const { token, setToken } = useContext(AuthContext)
   const [showSideBar, setShowSidebar] = useState(false);
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleClickImg = (e) => {
-    if(user.role==='aprobador'){
-      return navigate('/solicitudes')
-    }else{
-      return navigate('/inicio')
-    }
-  }
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Función para manejar el clic en el botón del menú
-  const handleMenuToggle = () => {
-    setMenuOpen(!menuOpen);
-  };
 
   const [ruta, setRuta] = useState('');
 
@@ -35,12 +24,23 @@ export default function NavBitacora() {
     setRuta(window.location.pathname);
   }, []);
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    if(user.role==='odontologa'){
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        setUser(null)
+        setToken(null)
+        navigate('/login/odontologia')
+      }
+  }
+
   return (
     <>
       {isLogged && (
         <div
           className="position-fixed bg-light shadow w-100 d-flex flex-row"
-          style={{ fontSize: 11, left: 0, height: "50px", zIndex: 2 }}
+          style={{ fontSize: 11, left: 0, height: "55px", zIndex: 2 }}
         >
           <div className="d-flex flex-row justify-content-between align-items-center w-100 h-100 px-4 shadow">
             <div
@@ -60,7 +60,7 @@ export default function NavBitacora() {
                 className="align-items-center rounded-pill p-2 pe-4 logo-user"
                 style={{ right: "-20px", height: 25 , backgroundColor:'#0101b5' }}
               >
-                <span className="text-light text-nowrap m-0 logo-user">{user.name}</span>
+                <span className="text-light text-nowrap m-0 logo-user">{user.role.toUpperCase()}</span>
               </div>
               <div
                 id="btn-session"
@@ -81,17 +81,85 @@ export default function NavBitacora() {
                   className="dropdown-menu text-center p-0 rounded-3"
                   style={{ width: "250px" }}
                 >
-                  <li className="border-bottom">
-                    <p className="fw-bold mt-1 mb-1">
-                      {user.role.toUpperCase()}
-                    </p>
-                  </li>
+                  {(user.role === 'admin' || user.role === 'auxiliar') &&
+                  <div>
+                    <li style={{ cursor: "pointer" }} className="border-bottom">
+                      <Link
+                        to="/registros/odontologia"
+                        className="text-decoration-none"
+                      >
+                        <p 
+                          className="dropdown-item fw-bold m-0"
+                          style={{
+                            backgroundColor:ruta==='/registros/odontologia' ? '#0101b5' : 'transparent',
+                            color:ruta ==='/registros/odontologia' ? 'white' : 'black',
+                          }}
+                        >
+                          REGISTROS ODONTOLOGIA
+                        </p>
+                      </Link>
+                    </li>
+                    <li style={{ cursor: "pointer" }} className="border-bottom">
+                      <Link
+                        to="/validar/funcionario"
+                        className="text-decoration-none"
+                        
+                      >
+                        <p 
+                          className="dropdown-item fw-bold m-0"
+                          style={{
+                            backgroundColor:ruta==='/validar/funcionario' ? '#0101b5' : 'transparent',
+                            color:ruta ==='/validar/funcionario' ? 'white' : 'black',
+                          }}
+                        >
+                          VALIDAR EMPLEADO
+                        </p>
+                      </Link>
+                    </li>
+                    {user.role === 'admin' &&
+                    <div>
+                      <li style={{ cursor: "pointer" }} className="border-bottom">
+                        <Link
+                          to="/funcionarios"
+                          className="text-decoration-none"
+                        >
+                          <p 
+                            className="dropdown-item fw-bold m-0"
+                            style={{backgroundColor:ruta==='/funcionarios' ? '#0101b5' : 'transparent',
+                              color:ruta ==='/funcionarios' ? 'white' : 'black',
+                              /* borderRadius:15 */
+                            }}
+                          >
+                            EMPLEADOS
+                          </p>
+                        </Link>
+                      </li>
+                    </div>
+                    }
+                    {/* <li style={{ cursor: "pointer" }} className="border-bottom">
+                    <Link
+                      to="/bitacora"
+                      className="text-decoration-none"
+                    >
+                      <p className="dropdown-item fw-bold m-0">
+                        REGISTROS CREDITOS
+                      </p>
+                    </Link>
+                    </li> */}
+                  </div>
+                  }
                   <li style={{ cursor: "pointer" }} className="border-bottom">
                     <Link
                       to="/cambiar/contrasena"
                       className="text-decoration-none"
                     >
-                      <p className="dropdown-item fw-bold m-0">
+                      <p 
+                        className="dropdown-item fw-bold m-0"
+                        style={{
+                          backgroundColor:ruta==='/cambiar/contrasena' ? '#0101b5' : 'transparent',
+                          color:ruta ==='/cambiar/contrasena' ? 'white' : 'black',
+                        }}
+                      >
                         CAMBIAR CONTRASEÑA
                       </p>
                     </Link>

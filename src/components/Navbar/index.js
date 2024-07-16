@@ -14,13 +14,6 @@ export default function Navbar() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleClickImg = (e) => {
-    if(user.role==='aprobador'){
-      return navigate('/solicitudes')
-    }else{
-      return navigate('/inicio')
-    }
-  }
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Función para manejar el clic en el botón del menú
@@ -65,7 +58,7 @@ export default function Navbar() {
                 {/* Botones en línea */}
                 <div className={`buttons ${menuOpen ? 'hidden' : ''}`}>
                   <div className="buttons justify-content-center h-100 text-align-center">         
-                    <button 
+                    {/* <button 
                       className="pt-2 mt-1 buttons" 
                       style={{backgroundColor:ruta==='/afiliacion' ? '#0101b5' : 'transparent',
                               color:ruta ==='/afiliacion' ? 'white' : 'black',
@@ -85,6 +78,16 @@ export default function Navbar() {
                       onClick={(e)=>(navigate('/Solicitud/credito'), setRuta('/Solicitud/credito'))}
                     >
                       Solicitar Crédito
+                    </button> */}
+                    <button 
+                      className="pt-2 mt-1 ms-1 buttons" 
+                      style={{backgroundColor:ruta==='/odontologia' ? '#0101b5' : 'transparent',
+                              color:ruta ==='/odontologia' ? 'white' : 'black',
+                              borderRadius:35
+                            }}
+                      onClick={(e)=>(navigate('/odontologia'), setRuta('/odontologia'))}
+                    >
+                      Odontología
                     </button>
                     <button 
                       className="pt-2 mt-1 ms-1 buttons bot-inicio" 

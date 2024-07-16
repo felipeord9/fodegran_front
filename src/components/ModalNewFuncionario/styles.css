@@ -1,0 +1,9 @@
+.bt-cancel{
+    background-color: red;
+    color: white;
+    border-radius: 6px;
+}
+  
+.bt-cancel:hover{
+    box-shadow: 0 0 0 4px red
+}

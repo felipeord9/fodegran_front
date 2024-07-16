@@ -1,0 +1,14 @@
+select option {
+  border-radius: 5;
+}
+
+.boton-ojo{
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.boton-ojo:hover{
+  box-shadow: 0 0 0 4px green
+}

@@ -14,6 +14,21 @@
     width: 50%;
 }
 
+.a4-page {
+    width: 70%;  /* Ancho en píxeles para una hoja A4 */
+    padding: 1px; /* Padding opcional */
+    margin: 1px auto; /* Centrar la hoja horizontalmente */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+    background-color: #fff; /* Color de fondo */
+}
+
+.custom-checkbox {
+    width: 18px; /* Tamaño del cuadro del checkbox */
+    height: 18px;
+    margin: 0; /* Ajusta los márgenes según sea necesario */
+    vertical-align: middle; /* Alineación vertical */
+}
+
 @media screen and (max-width: 1060px) {
     .fecha{
         width: 100%;
@@ -31,5 +46,8 @@
     }
     .fecha-soli{
         width: 75%;
+    }
+    .a4-page{
+        width: 100%;
     }
 }

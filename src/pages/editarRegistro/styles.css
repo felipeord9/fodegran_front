@@ -1,0 +1,56 @@
+.logo{
+    height:130px;
+    width:190px;
+}
+
+.div-botones{
+    display: flex ;
+    width: 50% ;
+}
+
+.boton-cancel{
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    margin: 5px;
+  }
+  
+  .boton-cancel:hover{
+    box-shadow: 0 0 0 4px red
+  }
+
+.facebook-icon{
+    color: white;
+}
+
+.facebook-icon:hover {
+    color: red; /* Cambia el color a azul */
+    cursor: pointer; /* Cambia el cursor a un puntero */
+}
+
+.input-add{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.instagram-icon:hover {
+    /* color: #8a3ab9;  *//* Cambia el color al pasar el cursor por encima */
+    color: green;
+    cursor: pointer; /* Cambia el cursor a un puntero */
+}
+
+@media (max-width: 1060px) {
+    .logo{
+        width: 150px;
+        margin-top: 1.5rem;
+    }
+    .div-botones{
+        width: 100%;
+    }
+    .input-add{
+        width: 100%;
+        display: flex;
+        padding-top: 7px;
+    }
+}

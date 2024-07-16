@@ -105,9 +105,9 @@
 }
 
 @media screen and (max-width: 1060px) {
-  .logo-user{
+  /* .logo-user{
     display: none;
-  }
+  } */
   .menu-toggle {
     display: block;
   }

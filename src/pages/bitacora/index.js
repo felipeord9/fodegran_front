@@ -8,6 +8,7 @@ import { MdPriceChange } from "react-icons/md";
 import { findCreditos } from "../../services/creditosServices";
 import NavBitacora from "../../components/NavBitacora";
 import TableCreditos from "../../components/TableCreditos";
+import './styles.css'
 
 export default function Bitacora() {
   const { user } = useContext(AuthContext);
@@ -86,7 +87,7 @@ export default function Bitacora() {
           </form>
           <button
             title="Nuevo pedido"
-            className="d-flex align-items-center text-nowrap text-light gap-1 h-100"
+            className="new align-items-center text-nowrap text-light gap-1 h-100"
             onClick={(e) => navigate("/pedido")}
             style={{backgroundColor:'#0101b5' , color:'white' , borderRadius:10}}
           >

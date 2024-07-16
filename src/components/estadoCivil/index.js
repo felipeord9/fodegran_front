@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './styles.css'
 
 export default function EstadoCivil ({estadoCivil, setEstadoCivil}) {
     const [isChecked1, setIsChecked1] = useState(false);

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect , useContext } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/NavBeneficiarios";
 import User from '../../assets/user.png'
 import * as Bs from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
@@ -7,34 +7,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import Checkbox from '@mui/material/Checkbox';
 import useUser from "../../hooks/useUser";
+import AuthContext from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { GiSandsOfTime } from "react-icons/gi";
-import AuthContext from "../../context/authContext";
+
+import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import './styles.css'
 
-export default function Login(){
+export default function LoginOdontologia(){
     const { login, isLoginLoading, hasLoginError, isLogged } = useUser();
     const navigate = useNavigate();
     const { user, setUser } = useContext(AuthContext);
     const [ entrando , setEntrando ] = useState(false);
-
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false)
 
     useEffect(() => {
-        if (isLogged && user.role==='admin') navigate('/registros/odontologia')/* navigate('/bitacora') */
+        if (isLogged && user.role==='admin') navigate('/bitacora')
         /* if (isLogged && user.role==='odontologa' ||
             isLogged && user.role==='contabilidad' ||
             isLogged && user.role==='recursos humanos' ||
             isLogged && user.role==='auxiliar'
         )navigate('/bitacora'); */
-        if (isLogged && user.role==='odontologa' || isLogged && user.role==='auxiliar' ) navigate('/registros/odontologia')
+        if (isLogged && user.role==='odontologa') navigate('/registros/odontologia')
     }, [isLogged, navigate]);
 
     const handleLogin = async (e) => {
@@ -53,7 +53,7 @@ export default function Login(){
             }) 
         }
     };
-
+  
     const togglePasswordVisibility = useCallback(() => {
         setShowPassword(!showPassword);
     });
@@ -78,7 +78,7 @@ export default function Login(){
 
                     <div className="input-container mt-3" >
                         <FontAwesomeIcon icon={faUser} className="icon" />
-                        <input id="email" value={email} onChange={(e)=>setEmail(e.target.value)} type="text" className="input-with-icon" placeholder="Username" />
+                        <input id="email" value={email} onChange={(e)=>setEmail(e.target.value)} type="text" className="input-with-icon" placeholder="Username" required />
                     </div>
 
                     <div className="d-flex align-items-center input-container mt-2">
@@ -115,12 +115,12 @@ export default function Login(){
                         </FormGroup>
                     </div> */}
 
-                    <div className="d-flex w-100 justify-content-center align-items-center mt-0 pt-2">
+                    <div className="d-flex w-100 justify-content-center align-items-center mt-0 pt-3">
                         <label><a href='/send/recovery' className='text-decoration-none' style={{fontSize:'medium'}}>¿Olvidaste tu constraseña?</a></label>
                     </div>
 
-                    <div className="d-flex w-100 justify-content-center align-items-center mt-2">
-                        <button className="bt-login" style={{color:'white',borderRadius:10}} >
+                    <div className="d-flex w-100 justify-content-center align-items-center mt-3">
+                        <button className="bt-login" onSubmit={(e)=>handleLogin(e)} style={{color:'white',borderRadius:10}} >
                             {entrando ? <strong>INGRESANDO... <GiSandsOfTime /></strong>:<strong>INGRESAR</strong>}
                         </button>
                     </div>

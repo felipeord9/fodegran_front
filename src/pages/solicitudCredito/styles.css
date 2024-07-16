@@ -40,12 +40,15 @@
         flex-direction: column;
     }
     .soli{
-        padding: 5px;
+        padding: 20px;
     }
     .logo-compressed{
         padding-top: 10px;
         display: flex;
         justify-content: center;
         text-align: center;
+    }
+    .center-container{
+        width: 90%;
     }
 }
