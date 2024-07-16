@@ -42,7 +42,7 @@ function App() {
               <Route path='/funcionarios' element={<PrivateRoute component={Funcionarios} />} />
               <Route path='/bitacora' element={<PrivateRoute component={Bitacora} />} />
               <Route path='/cambiar/contrasena' element={<PrivateRoute component={ChangePassword} />} />
-              <Route path='/recuperacion/contrasena//:token' element={<RecoveryPassword/>} />
+              <Route path='/recuperacion/contrasena/:token' element={<RecoveryPassword/>} />
               {/* <Route path='/inicio' element={<PrivateRoute component={Orders} />} /> */}
             </Routes>
           {/* </div> */}
