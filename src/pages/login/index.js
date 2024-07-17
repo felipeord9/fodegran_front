@@ -4,7 +4,7 @@ import User from '../../assets/user.png'
 import * as Bs from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser , faLock } from '@fortawesome/free-solid-svg-icons';
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -78,32 +78,39 @@ export default function Login(){
 
                     <div className="input-container mt-3" >
                         <FontAwesomeIcon icon={faUser} className="icon" />
-                        <input id="email" value={email} onChange={(e)=>setEmail(e.target.value)} type="text" className="input-with-icon" placeholder="Username" />
+                        <input 
+                            id="email" 
+                            value={email} 
+                            onChange={(e)=>setEmail(e.target.value)}
+                            type="text" className="input-with-icon" 
+                            placeholder="Username" 
+                        />
                     </div>
 
-                    <div className="d-flex align-items-center input-container mt-2">
-                        <span
+                    <div className=" input-container mt-2">
+                        {/* <FontAwesomeIcon icon={faUser} className="icon" /> */}
+                        {/* <span
                             className="icon"
                             onClick={togglePasswordVisibility}
                             style={{ left: 10, cursor: "pointer"}}
                         >
                             <FaLock />
-                        </span>
+                        </span> */}
+                        <FontAwesomeIcon icon={faLock} className="icon" />
                         <input
                             id={password}
                             type={showPassword ? "text" : "password"}
-                            className=" input-with-icon"
+                            className="input-with-icon"
                             onChange={handleChange}
-                            style={{ paddingRight: 33 }}
                             placeholder="⁕⁕⁕⁕⁕⁕⁕⁕⁕⁕"
                             minLength={8}
                             autoComplete="off"
                             required
                         />
                         <span
-                            className="icon"
+                            className="position-absolute"
                             onClick={togglePasswordVisibility}
-                            style={{ right: 10, cursor: "pointer" }}
+                            style={{ right: 7, cursor: "pointer" , color:'#aaa' }}
                         >
                             {showPassword ? <IoEye /> : <IoEyeOff />}
                         </span>

@@ -4,18 +4,25 @@
     border: 1px solid #aaa;
     border-radius: 4px;
     padding: 5px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .icon {
     margin-right: 5px;
     margin-left: 3px;
     color: #aaa;
+    display: flex;
+    position: relative;
   }
   
   .input-with-icon {
+    display: flex;
     border: none;
     outline: none;
-    flex: 1;
+    box-sizing: border-box;
+    width: 100%;
   }
   
   .input-with-icon::placeholder {

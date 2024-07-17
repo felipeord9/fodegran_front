@@ -28,7 +28,7 @@ function App() {
           {/* <Navbar /> */}
           {/* <div id='wrapper' className="d-flex vh-100 overflow-auto p-0"> */}
             <Routes>
-              <Route path='/' element={<Navigate to="/Solicitud/credito" />} />
+              <Route path='/' element={<Navigate to="/login" />} />
               <Route path='/odontologia' element={<Odontologia />} />
               <Route path='/Solicitud/credito' element={<SolicitudCredito />} />
               <Route path='/afiliacion' element={<Afiliacion />} />
