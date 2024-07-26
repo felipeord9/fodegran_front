@@ -42,33 +42,33 @@ export default function EstadoCivil ({estadoCivil, setEstadoCivil}) {
       }
     };
     return(
-        <div className="d-flex flex-row w-100" >
+        <div className="div-tipo w-100" >
             <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                <h5 className="mt-1">Estado civil: </h5>
+                <h5 className="fw-bold font-titulos mt-1">Estado civil: </h5>
             </div>
 
             <div className='d-flex w-100 flex-column justify-content-center'>
-                <h6 className='ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(1),setEstadoCivil('Soltero'))}>                      
+                <h6 className='font-titulos ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(1),setEstadoCivil('Soltero'))}>                      
                     <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked1} onChange={()=>(handleCheckboxChange(1),setEstadoCivil('Soltero'))}/>
                     Soltero
                 </h6>
-                <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(2),setEstadoCivil('Viudo'))}>
+                <h6 className='font-titulos ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(2),setEstadoCivil('Viudo'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked2} onChange={()=>(handleCheckboxChange(2),setEstadoCivil('Viudo'))}/>
                   Viudo
                 </h6>
             </div>
             <div className='d-flex w-100 flex-column justify-content-center'>
-                <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(3),setEstadoCivil('Casado'))}>
+                <h6 className='font-titulos ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(3),setEstadoCivil('Casado'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked3} onChange={()=>(handleCheckboxChange(3),setEstadoCivil('Casado'))}/>
                   Casado
                 </h6>
-                <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(4),setEstadoCivil('Union libre'))}>
+                <h6 className='font-titulos ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(4),setEstadoCivil('Union libre'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked4} onChange={()=>(handleCheckboxChange(4),setEstadoCivil('Union libre'))}/>
                   Union libre
                 </h6>
             </div>
             <div className='d-flex w-100 flex-column justify-content-center '>
-                <h6 className='ps-2 pe-2 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(5),setEstadoCivil('Separado'))}>
+                <h6 className='font-titulos ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(5),setEstadoCivil('Separado'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked5} onChange={()=>(handleCheckboxChange(5),setEstadoCivil('Separado'))}/>
                   Separado
                 </h6>

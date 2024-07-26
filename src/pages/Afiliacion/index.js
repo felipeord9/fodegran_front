@@ -9,6 +9,10 @@ import { saveAs } from 'file-saver';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { FaFileDownload } from "react-icons/fa";
 import TableHijos from "../../components/TableHijos";
+import { Container } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 
 export default function Afiliacion (){
@@ -136,19 +140,19 @@ export default function Afiliacion (){
             </div>
         <div ref={contentRef} className="" id="content">
             <div style={{height:62}}></div>
-            <div className="container ">
+            <Container fluid="sm">
                 <div className="row">
-                    <div className="col col-12 col-lg-3 col-md-12" style={{border: '2px solid black'}}>
-                        <img src={Logo2} className="w-100" style={{height:70}}></img>
+                    <div className="img-fode col col-12 col-lg-3 col-md-12" style={{border: '2px solid black'}}>
+                        <img src={Logo2} className=" img-fode w-100" style={{height:70}}></img>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex justify-content-center text-align-center align-items-center" style={{border: '2px solid black'}}>
-                        <h3 className="fw-bold">FORMULARIO UNICO DE AFILIACION</h3>
+                        <h3 className="fw-bold font-titulos">FORMULARIO UNICO DE AFILIACION</h3>
                     </div>
                     <div className="col col-12 col-lg-3 col-md-12 d-flex flex-row " style={{border: '2px solid black'}}>
-                        <div className="d-flex flex-column w-100 p-0 m-0">
-                            <h6 className="m-0 mb-1 p-0 w-100" >VERSION 001</h6>
-                            <h6 className="m-0 mb-1 p-0 w-100" >FECHA: {new Date().toLocaleDateString()}</h6>
-                            <h6 className="m-0 mb-1 p-0 w-100" >CODIGO: FUA - 001</h6>
+                        <div className="d-flex flex-column w-100 p-0 m-0 ">
+                            <h6 className="font-text m-0 mb-1 p-0 w-100" >VERSION 001</h6>
+                            <h6 className="font-text m-0 mb-1 p-0 w-100" >FECHA: {new Date().toLocaleDateString()}</h6>
+                            <h6 className="font-text m-0 mb-1 p-0 w-100" >CODIGO: FUA - 001</h6>
                         </div>
                         <button 
                             className="boton-cancel m-2 d-flex flex-row justify-content-center align-items-center" 
@@ -157,31 +161,31 @@ export default function Afiliacion (){
                         {/* <button className="btn btn-success" onClick={handleDownloadWord}>WORD</button> */}
                     </div>
                 </div>
-            </div>
+            </Container>
             <div className="container d-flex flex-column justify-content-center text-align-center align-items-center" style={{border:'2px solid black'}}>
-                <h4 className="mb-0 fw-bold mb-2">FONDE DE EMPLEADOS DEL GRAN LANGOSTINO - FODEGRAN</h4>
+                <h4 className="font-titulos mb-0 fw-bold mb-2">FONDE DE EMPLEADOS DEL GRAN LANGOSTINO - FODEGRAN</h4>
                 <div>
-                    <h5 className="mb-1">Oficina: Calle 13 # 32 - 417, Bodega 4, Acopi Yumbo     Tels. 324 255 9322</h5>
+                    <h5 className="font-text mb-1">Oficina: Calle 13 # 32 - 417, Bodega 4, Acopi Yumbo     Tels. 324 255 9322</h5>
                 </div>
                 <div className="d-flex fecha">
-                    <h5 className="d-flex flex-row fecha-soli ">Fecha de solicitud</h5>
+                    <h5 className="font-titulos fw-bold d-flex flex-row fecha-soli ">Fecha de solicitud</h5>
                     <input className="form-control form-control-sm w-50 ms-4" onChange={(e)=>setFechaSolicitud(e)} type="date"/>
                 </div>
-                <div className="d-flex flex-row w-100" >
+                <div className="div-tipo w-100" >
                     <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h6 className='ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(1),setTipoAfiliacion('Nueva afiliación'))}>
+                        <h6 className='font-sin-pad ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(1),setTipoAfiliacion('Nueva afiliación'))}>
                           <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked1} onChange={()=>(handleCheckboxChange(1),setTipoAfiliacion('Nueva afiliación'))}/>
                           Nueva afiliación
                         </h6>
                     </div>
                     <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(2),setTipoAfiliacion('Reingreso'))}>
+                        <h6 className='font-sin-pad ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(2),setTipoAfiliacion('Reingreso'))}>
                           <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked2} onChange={()=>(handleCheckboxChange(2),setTipoAfiliacion('Reingreso'))}/>
                           Reingreso
                         </h6>
                     </div>
                     <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(3),setTipoAfiliacion('Actualización de datos'))}>
+                        <h6 className='font-sin-pad ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(3),setTipoAfiliacion('Actualización de datos'))}>
                           <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked3} onChange={()=>(handleCheckboxChange(3),setTipoAfiliacion('Actualización de datos'))}/>
                           Actualización de datos
                         </h6>
@@ -191,7 +195,7 @@ export default function Afiliacion (){
             <div className="container d-flex flex-column justify-content-center text-align-center align-items-center pt-0 pb-0 mb-0" style={{border:'2px solid black',backgroundColor:'#b5b5b5'}}>
                 <div className="row">
                     <div className="col col-12 col-lg-12 col-md-12 mb-0 pb-0">
-                        <h5 className="pb-0 mb-0">INFORMACION GENERAL PERSONAL</h5>
+                        <h5 className="fw-bold font-titulos pb-0 mb-0">INFORMACION GENERAL PERSONAL</h5>
                     </div>
                 </div>
             </div>
@@ -199,11 +203,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Nombre:</h6>
-                        <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Nombre:</h6>
+                        <input className="font-sin-pad form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Apellidos:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Apellidos:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -212,11 +216,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Tipo de Documento:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Tipo de Documento:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 w-50 ms-1">No. Identificación:</h6>
+                        <h6 className="font-titulos mt-1 me-1 w-50 ms-1">No. Identificación:</h6>
                         <input className="form-control form-control-sm nu-ide" style={{backgroundColor:'whitesmoke'}} type="number"/>
                     </div>
                 </div>
@@ -225,11 +229,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Fecha expedición:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Fecha expedición:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="date"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Ciudad:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Ciudad:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -238,7 +242,7 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Nacionalidad:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Nacionalidad:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -247,11 +251,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Fecha de nacimiento:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Fecha de nacimiento:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="date"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 w-50 ms-1">Ciudad de nacimiento:</h6>
+                        <h6 className="font-titulos mt-1 me-1 w-50 ms-1">Ciudad de nacimiento:</h6>
                         <input className="form-control form-control-sm nu-ide" style={{backgroundColor:'whitesmoke'}} type="number"/>
                     </div>
                 </div>
@@ -266,11 +270,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Dirección Residencia:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Dirección Residencia:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Barrio:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Barrio:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -279,15 +283,15 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-4 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Ciudad:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Ciudad:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-4 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Teléfono:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Teléfono:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-4 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Estrato:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Estrato:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -296,35 +300,35 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
-                        <h6 className="mt-1 me-1 ms-1">Celular:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Celular:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Correo:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Correo:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="email"/>
                     </div>
                 </div>
             </div>
             {/* Tipo de vivienda */}
             <div className="container p-0" style={{border:'2px solid black'}}>
-                <div className="d-flex flex-row w-100" >
-                    <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h5 className="mt-1">Tipo de vivienda: </h5>
+                <div className="div-tipo w-100" >
+                    <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center '>
+                        <h5 className="font-titulos fw-bold mt-1">Tipo de vivienda: </h5>
                     </div>                    
-                    <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h6 className='ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTipoVivienda(4),setTipoVivienda('Propia'))}>
+                    <div className='d-flex w-100 flex-column '>
+                        <h6 className='font-titulos ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTipoVivienda(4),setTipoVivienda('Propia'))}>
                         <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked4} onChange={()=>(handleTipoVivienda(4),setTipoVivienda('Propia'))}/>
                         Propia
                         </h6>
                     </div>
-                    <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTipoVivienda(5),setTipoVivienda('Alquilada'))}>
+                    <div className='d-flex w-100 flex-column '>
+                        <h6 className='font-titulos ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTipoVivienda(5),setTipoVivienda('Alquilada'))}>
                         <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked5} onChange={()=>(handleTipoVivienda(5),setTipoVivienda('Alquilada'))}/>
                         Alquilada
                         </h6>
                     </div>
-                    <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                        <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTipoVivienda(6),setTipoVivienda('Familiar'))}>
+                    <div className='d-flex w-100 flex-column '>
+                        <h6 className='font-titulos ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTipoVivienda(6),setTipoVivienda('Familiar'))}>
                         <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked6} onChange={()=>(handleTipoVivienda(6),setTipoVivienda('Familiar'))}/>
                         Familiar
                         </h6>
@@ -335,13 +339,21 @@ export default function Afiliacion (){
             {tipoVivienda === 'Alquilada' && 
                 <div className="container p-0" style={{border:'2px solid black'}}>
                     <div className="row w-100">
-                        <div className="col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1">
-                            <h6 className="mt-1 me-1 ms-1 w-25">¿Cuánto paga de arriendo?</h6>
-                            $<input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="number"/>
+                        <div className="font-titulos col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1">
+                            <h6 className="font-titulos mt-1 me-1 ms-1 w-25">¿Cuánto paga de arriendo?</h6>
+                            <FontAwesomeIcon 
+                                icon={faDollarSign} 
+                                className="icon mt-2"
+                                style={{color:'black'}}
+                            />
+                            <input 
+                                className="input-with-icon" 
+                                style={{backgroundColor:'whitesmoke'}} 
+                                type="number"
+                            />
                         </div>
                     </div>
                 </div>
-
             }
             {/* nivel escolar */}
             <div className="container p-0" style={{border:'2px solid black'}}>
@@ -353,11 +365,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Nombre de la carrera:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Nombre de la carrera:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Otros estudios:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Otros estudios:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -366,7 +378,7 @@ export default function Afiliacion (){
             <div className="container d-flex flex-column justify-content-center text-align-center align-items-center pt-0 pb-0 mb-0" style={{border:'2px solid black',backgroundColor:'#b5b5b5'}}>
                 <div className="row">
                     <div className="col col-12 col-lg-12 col-md-12 mb-0 pb-0">
-                        <h5 className="pb-0 mb-0">INFORMACION FAMILIAR</h5>
+                        <h5 className="font-titulos pb-0 mb-0">INFORMACION FAMILIAR</h5>
                     </div>
                 </div>
             </div>
@@ -374,7 +386,7 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-25">Nombre de esposa o cónyuge:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 div-conyuge">Nombre de esposa o cónyuge:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -383,11 +395,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1 w-50">Tipo de Documento:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1 w-50">Tipo de Documento:</h6>
                         <input className="form-control form-control-sm tipo-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 w-50 ms-1">No. Identificación:</h6>
+                        <h6 className="font-titulos mt-1 me-1 w-50 ms-1">No. Identificación:</h6>
                         <input className="form-control form-control-sm nu-ide" style={{backgroundColor:'whitesmoke'}} type="number"/>
                     </div>
                 </div>
@@ -396,11 +408,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row border-cambio pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Ocuapación:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Ocuapación:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 w-50 ms-1">Empresa donde labora:</h6>
+                        <h6 className="font-titulos mt-1 me-1 w-50 ms-1">Empresa donde labora:</h6>
                         <input className="form-control form-control-sm nu-ide" style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                 </div>
@@ -409,11 +421,11 @@ export default function Afiliacion (){
             <div className="container p-0" style={{border:'2px solid black'}}>
                 <div className="row w-100">
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
-                        <h6 className="mt-1 me-1 ms-1">Celular:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Celular:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="text"/>
                     </div>
                     <div className="col col-12 col-lg-6 col-md-12 d-flex flex-row pt-1 pb-1">
-                        <h6 className="mt-1 me-1 ms-1">Correo:</h6>
+                        <h6 className="font-titulos mt-1 me-1 ms-1">Correo:</h6>
                         <input className="form-control form-control-sm " style={{backgroundColor:'whitesmoke'}} type="email"/>
                     </div>
                 </div>
@@ -423,17 +435,17 @@ export default function Afiliacion (){
                 <div className="row w-100">
                     <div className="col col-12 col-lg-8 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
                         <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                            <h5 className="mt-1">¿Tiene hijos? </h5>
+                            <h5 className="font-titulos mt-1">¿Tiene hijos? </h5>
                         </div>
                         <div className="d-flex flex-row w-100" >
-                            <div className='d-flex w-100 flex-column justify-content-center'>
-                                <h6 className='ps-3 pe-3 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTieneHijos(7),setTipoAfiliacion('SI'))}>
+                            <div className='d-flex w-100 '>
+                                <h6 className='font-titulos hijos m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTieneHijos(7),setTipoAfiliacion('SI'))}>
                                 <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked7} onChange={()=>(handleTieneHijos(7),setTipoAfiliacion('SI'))}/>
                                 SI
                                 </h6>
                             </div>
-                            <div className='d-flex w-100 flex-column justify-content-center '>
-                                <h6 className='ps-3 pe-3 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTieneHijos(8),setTipoAfiliacion('NO'))}>
+                            <div className='d-flex w-100  '>
+                                <h6 className='font-titulos hijos m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleTieneHijos(8),setTipoAfiliacion('NO'))}>
                                 <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked8} onChange={()=>(handleTieneHijos(8),setTipoAfiliacion('NO'))}/>
                                 NO
                                 </h6>
@@ -442,19 +454,15 @@ export default function Afiliacion (){
                     </div>
                     <div className="col col-12 col-lg-4 col-md-12 d-flex flex-row pt-1 pb-1">
                         <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                            <h5 className="mt-1">No. de Hijos </h5>
+                            <h5 className="font-titulos mt-1">No. de Hijos </h5>
                         </div>
                         <input className="form-control form-control-sm nu-ide" style={{backgroundColor:'whitesmoke'}} type="number"/>
                     </div>
                 </div>
             </div>
             {/* Nombre, fecha nacimiento, edad y nivel educativo de hijos */}
-            <div className="container p-0" style={{border:'2px solid black'}}>
-                <div className="row w-100">
-                    <div className="col col-12 col-lg-12 col-md-12 d-flex flex-row pt-1 pb-1 border-cambio">
-                        <TableHijos rows={Hijos} setRows={setHijos}/>
-                    </div>
-                </div>
+            <div className="container p-0">
+                <TableHijos rows={Hijos} setRows={setHijos}/>
             </div>
         </div>
         </div>

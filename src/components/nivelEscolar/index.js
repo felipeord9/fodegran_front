@@ -87,43 +87,43 @@ export default function NivelEscolar ({nivelEscolar, setNivelEscolar}) {
       }
     };
     return(
-        <div className="d-flex flex-row w-100" >
+        <div className="div-tipo w-100" >
             <div className='d-flex w-100 flex-column justify-content-center text-align-center align-items-center'>
-                <h5 className="mt-1">Nivel de escolaridad: </h5>
+                <h5 className="font-titulos mt-1 fw-bold">Nivel de escolaridad: </h5>
             </div>
 
             <div className='d-flex w-100 flex-column '>
-                <h6 className='ps-1 pe-1 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(1),setNivelEscolar('PRIMARIA'))}>                      
+                <h6 className='font-titulos ps-1 pe-1 m-1' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(1),setNivelEscolar('PRIMARIA'))}>                      
                     <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked1} onChange={()=>(handleCheckboxChange(1),setNivelEscolar('PRIMARIA'))}/>
                     PRIMARIA
                 </h6>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(2),setNivelEscolar('TECNICO'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(2),setNivelEscolar('TECNICO'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked2} onChange={()=>(handleCheckboxChange(2),setNivelEscolar('TECNICO'))}/>
                   TECNICO
                 </h6>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(3),setNivelEscolar('PROFESIONAL'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(3),setNivelEscolar('PROFESIONAL'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked3} onChange={()=>(handleCheckboxChange(3),setNivelEscolar('PROFESIONAL'))}/>
                   PROFESIONAL
                 </h6>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(4),setNivelEscolar('MAESTRIA'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(4),setNivelEscolar('MAESTRIA'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked4} onChange={()=>(handleCheckboxChange(4),setNivelEscolar('MAESTRIA'))}/>
                   MAESTRIA
                 </h6>
             </div>
             <div className='d-flex w-100 flex-column '>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(5),setNivelEscolar('BACHILLER'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(5),setNivelEscolar('BACHILLER'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked5} onChange={()=>(handleCheckboxChange(5),setNivelEscolar('BACHILLER'))}/>
                   BACHILLER
                 </h6>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(6),setNivelEscolar('TECNOLOGO'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(6),setNivelEscolar('TECNOLOGO'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked6} onChange={()=>(handleCheckboxChange(6),setNivelEscolar('TECNOLOGO'))}/>
                   TECNOLOGO
                 </h6>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(7),setNivelEscolar('ESPECIALISTA'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(7),setNivelEscolar('ESPECIALISTA'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked7} onChange={()=>(handleCheckboxChange(7),setNivelEscolar('ESPECIALISTA'))}/>
                   ESPECIALISTA
                 </h6>
-                <h6 className='ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(8),setNivelEscolar('DOCTORADO'))}>
+                <h6 className='font-titulos ps-1 pe-1 m-1 ' style={{borderRadius:12, cursor:'pointer'}} onClick={()=>(handleCheckboxChange(8),setNivelEscolar('DOCTORADO'))}>
                   <input className="me-1" type='radio' style={{cursor:'pointer'}} checked={isChecked8} onChange={()=>(handleCheckboxChange(8),setNivelEscolar('DOCTORADO'))}/>
                   DOCTORADO
                 </h6>

@@ -20,14 +20,14 @@ const TableHijos = ({rows , setRows}) => {
   };
 
   return (
-    <div className='d-flex w-100'>
-      <table >
+    <div className='d-flex w-100' style={{border:'2px solid black '}}>
+      <table className='w-100'>
         <thead>
           <tr>
-            <th className='fila' style={{borderTop:'none', borderInlineStart:'none'}}>Nombre</th>
-            <th className='fila' style={{borderTop:'none'}}>Fecha de Nacimiento</th>
-            <th className='fila' style={{borderTop:'none'}}>Edad</th>
-            <th className='fila' style={{borderTop:'none'}}>Nivel Educativo</th>
+            <th className='fila ancho' style={{borderTop:'none', borderInlineStart:'none'}}>Nombre</th>
+            <th className='fila ancho' style={{borderTop:'none'}}>Fecha de Nacimiento</th>
+            <th className='fila ancho' style={{borderTop:'none'}}>Edad</th>
+            <th className='fila ancho' style={{borderTop:'none'}}>Nivel Educativo</th>
           </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@ const TableHijos = ({rows , setRows}) => {
                     {row.id}.
                     <input
                     type="text"
-                    className='input-with-icon'
+                    className='input-with-icon ancho'
                     value={row.nombre}
                     style={{backgroundColor:'whitesmoke'}}
                     onChange={(e) => handleInputChange(e, row.id, 'nombre')}
@@ -48,7 +48,7 @@ const TableHijos = ({rows , setRows}) => {
               <td className='fila'>
                 <input
                   type="date"
-                  className='form-control form-control-sm'
+                  className='form-control form-control-sm ancho'
                   value={row.fechaNacimiento}
                   style={{backgroundColor:'whitesmoke'}}
                   onChange={(e) => handleInputChange(e, row.id, 'fechaNacimiento')}
@@ -57,7 +57,7 @@ const TableHijos = ({rows , setRows}) => {
               <td className='fila'>
                 <input
                   type="number"
-                  className='form-control form-control-sm'
+                  className='form-control form-control-sm ancho'
                   value={row.edad}
                   style={{backgroundColor:'whitesmoke'}}
                   onChange={(e) => handleInputChange(e, row.id, 'edad')}
@@ -67,7 +67,7 @@ const TableHijos = ({rows , setRows}) => {
                 <input
                   type="text"
                   style={{backgroundColor:'whitesmoke'}}
-                  className='form-control form-control-sm'
+                  className='form-control form-control-sm ancho'
                   value={row.nivelEducativo}
                   onChange={(e) => handleInputChange(e, row.id, 'nivelEducativo')}
                 />

@@ -143,7 +143,8 @@ export default function Odontologia (){
                         cotizante: cotizante,
                         datos: datos,
                         createdAt: new Date(),
-                        estado: 'NUEVO'
+                        estado: 'NUEVO',
+                        cortesia: false,
                     }
                     createOdontologia(body)
                     .then(()=>{

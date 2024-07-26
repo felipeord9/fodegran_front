@@ -7,6 +7,7 @@ import AuthContext from "../../context/authContext";
 import * as FaIcons from "react-icons/fa";
 import EditarRegistro from "../../pages/editarRegistro";
 import Checkbox from '@mui/material/Checkbox';
+import { styled } from '@mui/system';
 import { updateOdontologia } from "../../services/odontologiaService";
 import "./styles.css";
 
@@ -27,6 +28,19 @@ const conditionalRowStyles = [
     },
   },
 ];
+
+const customStyles = {
+  headCells: {
+    style: {
+      fontSize: '12.5px',
+      opacity:0.9,
+      color:'black',
+      class:'fw-bold',
+      fontWeight: 'bold',
+      
+    },
+  },
+};
 
 function TableRegistros({ registros, getAll, loading }) {
   const { user } = useContext(AuthContext);
@@ -61,7 +75,7 @@ function TableRegistros({ registros, getAll, loading }) {
       name: "No.identificación",
       selector: (row) => row.idCotizante,
       sortable: true,
-      width: "150px",
+      width: "170px",
     },
     {
       id: "nameCotizante",
@@ -81,7 +95,73 @@ function TableRegistros({ registros, getAll, loading }) {
     },
     {
       id: "numeroCotizante",
-      name: "Numero",
+      name: "No.Celular",
+      selector: (row) => row.numeroCotizante,
+      sortable: true,
+      /* class:'cell' */
+      width: "200px",
+    },
+    {
+      id: "cortesia",
+      name: "Cortesía",
+      center: true,
+      cell: (row, index, column, id) =>
+        <div>
+          <HandleCortesia row={row}/>
+        </div>
+      ,
+      sortable: true,
+      width: "105px",
+    }
+  ];
+
+  const adminColumns = [
+    {
+      id: "options",
+      name: "",
+      center: true,
+      cell: (row, index, column, id) =>
+        <div>
+          <button
+              title="Ver PDF de pedido"
+              className="m-1 boton-ojo"
+              onClick={(e) => {
+                localStorage.setItem('registro',JSON.stringify(row));
+                navigate('/editar/registro')
+              }}
+            >
+              <FaIcons.FaEye />
+          </button>
+        </div>
+        ,
+      width: "50px",
+    },
+    {
+      id: "idCotizante",
+      name: "No.identificación",
+      selector: (row) => row.idCotizante,
+      sortable: true,
+      width: "160px",
+    },
+    {
+      id: "nameCotizante",
+      name: "Nombre",
+      selector: (row) => row.nameCotizante,
+      sortable: true,
+      class:'cell'
+      /* width: "125px", */
+    },
+    {
+      id: "correoCotizante",
+      name: "Correo Elctrónico",
+      selector: (row) => row.correoCotizante,
+      sortable: true,
+      class:'cell'
+      /* width: "200px", */
+    },
+    {
+      id: "numeroCotizante",
+      name: "No.Celular",
       selector: (row) => row.numeroCotizante,
       sortable: true,
       /* class:'cell' */
@@ -105,7 +185,19 @@ function TableRegistros({ registros, getAll, loading }) {
         </div>
       ,
       sortable: true,
-      width: "100px",
+      width: "50px",
+    },
+    {
+      id: "cortesia",
+      name: "Cortesía",
+      center: true,
+      cell: (row, index, column, id) =>
+        <div>
+          <HandleCortesia row={row}/>
+        </div>
+      ,
+      sortable: true,
+      width: "105px",
     },
   ];
 
@@ -115,22 +207,86 @@ function TableRegistros({ registros, getAll, loading }) {
     }
     const handleClick = (e) => {
       e.preventDefault();
-      Swal.fire({
-        icon:'warning',
-        title:'¡ATENCIÓN!',
-        text:'Debes primero revisar la información antes de cambiar el estado del registro. Da click en "OK", para continuar con la revisión.',
-        showConfirmButton:true,
-        confirmButtonText:'OK',
-        confirmButtonColor:'green',
-        showCancelButton:true,
-        cancelButtonColor:'red'
-      })
-      .then(({isConfirmed})=>{
-        if(isConfirmed){
-          localStorage.setItem('registro',JSON.stringify(row));
-          navigate('/revisar/registro')
-        }
-      })
+      if(row.estado==='NUEVO'){
+        Swal.fire({
+          icon:'warning',
+          title:'¡ATENCIÓN!',
+          text:'Debes primero revisar la información antes de cambiar el estado del registro. Da click en "REVISAR", para continuar con la revisión.',
+          showConfirmButton:true,
+          confirmButtonText:'REVISAR',
+          confirmButtonColor:'green',
+          showCancelButton:true,
+          cancelButtonColor:'red'
+        })
+        .then(({isConfirmed})=>{
+          if(isConfirmed){
+            localStorage.setItem('registro',JSON.stringify(row));
+            navigate('/revisar/registro')
+          }
+        })
+      }
+    }
+    return(
+      <div>
+        <Checkbox
+          defaultChecked
+          sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
+          className="ms-0 ps-0"
+          /* disabled={(row.estado === 'NUEVO' && user.role !=='odontologa') ? false : true } */
+          checked={row.estado !== 'NUEVO'  && true}
+          onClick={(e)=>handleClick(e)}
+        />
+      </div>
+    )
+  }
+
+  const HandleCortesia = ({row}) => {
+    const revisado = {
+      cortesia: true
+    }
+    const handleClick = (e) => {
+      e.preventDefault();
+      if(row.cortesia === false){
+        Swal.fire({
+          icon:'warning',
+          title:'¿Estás segur@?',
+          text:`Se registrará la limpieza de cortesía para: ${row.nameCotizante}, con número de identificación: ${row.idCotizante}`,
+          showConfirmButton:true,
+          confirmButtonText:'Confirmar',
+          confirmButtonColor:'green',
+          showCancelButton:true,
+          cancelButtonColor:'red',
+          cancelButtonText:'Cancelar'
+        })
+        .then(({isConfirmed})=>{
+          if(isConfirmed){
+            updateOdontologia(row.id,revisado)
+            .then(()=>{
+              Swal.fire({
+                icon:'success',
+                title:'¡Felicidades!',
+                text:`Se ha hecho el registro de cortesía con éxito.`,
+                showConfirmButton:true,
+                confirmButtonText:'OK',
+                confirmButtonColor:'green',
+                showCancelButton:false
+              })
+              getAll()
+            })
+            .catch(()=>{
+              Swal.fire({
+                icon:'error',
+                title:'¡ERROR!',
+                text:`Ha ocurrido un error al momento de hacer el registro de la cortesía. Por favor intentelo de nuevo. Si el problema persiste comunícate con los programadores para darte una rápido y oportuna solución.`,
+                showConfirmButton:true,
+                confirmButtonText:'OK',
+                confirmButtonColor:'red',
+                showCancelButton: false,
+              })
+            })
+          }
+        })
+      }
     }
     return(
       <div>
@@ -138,9 +294,11 @@ function TableRegistros({ registros, getAll, loading }) {
           defaultChecked
           sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
           color="success"
-          disabled={(row.estado === 'NUEVO' && user.role !=='odontologa') ? false : true }
-          checked={row.estado !== 'NUEVO'  && true}
+          className="ms-0 ps-0"
+          /* disabled={(row.cortesia === true) ? true : false } */
+          checked={row.cortesia === true  && true}
           onClick={(e)=>handleClick(e)}
+          
         />
       </div>
     )
@@ -177,10 +335,11 @@ const sortedData = registros.sort((a, b) => {
     >
       <DataTable
         className="bg-light text-center border border-2 h-100 p-0 m-0"
-        columns={columns}
+        columns={(user.role==='admin' || user.role==='auxiliar') ? adminColumns : columns }
         data={sortedData}
         fixedHeaderScrollHeight={200}
         progressPending={loading}
+        customStyles={customStyles}
         progressComponent={
           <div class="d-flex align-items-center text-danger gap-2 mt-2">
             <strong>Cargando...</strong>

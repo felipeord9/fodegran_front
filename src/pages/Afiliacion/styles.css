@@ -13,6 +13,9 @@
 .fecha-soli{
     width: 50%;
 }
+.img-fode{
+    display: flex;
+}
 
 .a4-page {
     width: 70%;  /* Ancho en píxeles para una hoja A4 */
@@ -29,9 +32,43 @@
     vertical-align: middle; /* Alineación vertical */
 }
 
+.div-tipo{
+    display: flex;
+    flex-direction: row;
+}
+.div-conyuge{
+    width: 25%;
+}
+.hijos{
+    padding-left: 7px;
+    padding-right: 7px;
+}
 @media screen and (max-width: 1060px) {
     .fecha{
         width: 100%;
+    }
+    .hijos{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .div-conyuge{
+        width: 50%;
+    }
+    .font-titulos{
+        font-size: 14px;
+        padding-top: 5px;
+    }
+    .font-sin-pad{
+        font-size: 14px;   
+    }
+    .font-text{
+        font-size: 12px;
+    }
+    .img-fode{
+        display: none;
+    }
+    .div-tipo{
+        flex-direction: column;
     }
     .border-cambio{
         border-inline-end:none;
