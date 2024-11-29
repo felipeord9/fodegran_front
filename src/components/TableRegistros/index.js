@@ -37,7 +37,6 @@ const customStyles = {
       color:'black',
       class:'fw-bold',
       fontWeight: 'bold',
-      
     },
   },
 };

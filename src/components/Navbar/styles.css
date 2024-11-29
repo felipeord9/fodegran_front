@@ -79,7 +79,7 @@
 
 .nav-menu.active {
   right: 0;
-  /* transition: right 350ms; */
+  transition: right 350ms;
 }
 
 .div-huella{
