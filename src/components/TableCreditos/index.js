@@ -1,51 +1,138 @@
 import { useState, useEffect, useContext } from "react";
 import DataTable from "react-data-table-component";
-import Swal from "sweetalert2";
-import ModalSolicitud from "../ModalSolicitud";
+import { mailSolicitante } from '../../services/creditosServices';
+import DocPaquetaCreditoPDF from "../DocPaquetaCreditoPDF";
+import DocEstudioPDF from "../DocEstudioPDF";
+import PDFFormSolicitud from "../DocSolicitudPDF";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import AuthContext from "../../context/authContext";
+import { findOneByCredito } from "../../services/estudioCreditoService";
+import { findOneCredito } from "../../services/creditosServices";
+import { FaShareSquare } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { Modal } from "react-bootstrap";
 import "./styles.css";
+import Swal from "sweetalert2";
 
 const styleStatus = {
-  "pedido nuevo": "primary",
-  alistamiento: "secondary",
-  "verificando pago": "info",
-  "en ruta": "warning",
-  rechazado: "danger",
-  entregado: "success",
+  Nuevo: "primary",
+  "Estudio 1": "secondary",
+  "Estudio 2": "dark",
+  "Presidente": "muted",
+  "Comité 1": "secondary",
+  "Comité 2": "info",
+  "Gerencia": "muted",
+  "Tesoreria": "warning",
+  "Rechazado": "danger",
+  "Finalizado": "success",
 };
 
 function TableCreditos({ creditos, getAll, loading }) {
   const { user } = useContext(AuthContext);
   const [isMobile, setIsMobile] = useState(null);
   const [selectedCredito, setSelectedCredito] = useState(null);
-  const [ showModal , setShowModal ] = useState(false)
+  const [credito, setCredito] = useState(null);
+  const navigate = useNavigate();
   const columns = [
     {
       id: "options",
       name: "",
       center: true,
       cell: (row, index, column, id) =>
-        <div>
-          <ModalSolicitud 
-            selectedCredito={selectedCredito} 
-            setSelectedCredito={setSelectedCredito} 
-            showModal={showModal}
-            setShowModal={setShowModal} 
-          />
-          <button
-              title="Ver PDF de pedido"
-              className="m-1 boton-ojo"
+        isMobile ? (
+          <div className="d-flex gap-2 p-1">
+            <PDFDownloadLink
+              document={<DocPaquetaCreditoPDF order={row} />}
+              fileName={`${row?.coId}-PDV-${row?.rowId}.pdf`}
               onClick={(e) => {
-                setSelectedCredito(row);
-                setShowModal(true)
+                e.download();
               }}
             >
+              <FaIcons.FaDownload />
+            </PDFDownloadLink>
+          </div>
+        ) : (
+          <div className="d-flex gap-2 p-1">
+            <button
+              title="Ver PDF de pedido"
+              className="btn btn-sm btn-success"
+              onClick={(e) => {
+                lookStudy({row})
+              }}
+              /* setSelectedCredito(row); */
+            >
               <FaIcons.FaEye />
-          </button>
-        </div>
-        ,
+            </button>
+          </div>
+        ),
       width: "50px",
+    },
+    {
+      id: "editar",
+      name: "",
+      center: true,
+      cell: (row, index, column, id) => (
+        <div className='d-flex gap-2 p-1'>
+          {((user.role === 'presidente' || user.role === 'comite1' || user.role === 'comite2' || user.role === 'gerencia' || user.role === 'admin') && (row.estado === 'Comité 1' || row.estado === 'Comité 2' || row.estado === 'Presidente' || row.estado === 'Gerencia')) ? (
+            <button 
+              title="Editar registro" className='btn btn-sm'
+              style={{background:'#0101b5', color:'white'}}
+              onClick={(e) => {
+                /* setSelectedCredito(row) */
+                navigate(`/ver/paquete/credito/${row.id}`)
+              }}
+            >
+              <FaEdit />
+            </button>
+          ):((user.role === 'estudio' || user.role === 'admin' ) && row.estado === 'Estudio 1') ? (
+            <button 
+              title="Editar registro" className='btn btn-sm'
+              style={{background:'#0101b5', color:'white'}}
+              onClick={(e) => {
+                /* setSelectedCredito(row) */
+                navigate(`/estudio/credito/${row.id}`)
+              }}
+            >
+              <FaEdit />
+            </button>
+          ):((user.role === 'auxiliar' || user.role === 'admin') && row.estado === 'Estudio 2') ? (
+            <button 
+              title="Editar registro" className='btn btn-sm'
+              style={{background:'#0101b5', color:'white'}}
+              onClick={(e) => {
+                /* setSelectedCredito(row) */
+                navigate(`/estudio/credito/auxiliar/${row.id}`)
+              }}
+            >
+              <FaEdit />
+            </button>
+          ):((user.role === 'tesoreria' || user.role === 'admin') && row.estado === 'Tesoreria') && (
+            <button 
+              title="Editar registro" className='btn btn-sm'
+              style={{background:'#0101b5', color:'white'}}
+              onClick={(e) => {
+                /* setSelectedCredito(row) */
+                navigate(`/paquete/tesoreria/${row.id}`)
+              }}
+            >
+              <FaEdit />
+            </button>
+          )/* :((user.role === 'auxiliar' || user.role === 'admin') && row.estado === 'Nuevo') && (
+            <button 
+              title="Editar registro" className='btn btn-sm'
+              style={{background:'#0101b5', color:'white'}}
+              onClick={(e) => {
+                mailSolicitante(row)
+              }}
+            >
+              <FaShareSquare />
+            </button>
+          ) */}
+        </div>
+      ),
+      width: '60px'
     },
     {
       id: "state",
@@ -54,38 +141,64 @@ function TableCreditos({ creditos, getAll, loading }) {
       cell: (row, index, column, id) => (
         <select
           id={row.id}
+          
           className={`
               form-control form-control-sm border border-2 border-${
-                styleStatus[row.state]
-              } text-center text-${styleStatus[row.state]}
+                styleStatus[row.estado]
+              } text-center text-${styleStatus[row.estado]}
             `}
-          value={row.state}
-          disabled={user.role === "vendedor"}
-          /* onChange={(e) => updateState(e, row)} */
+          value={row.estado}
+          disabled
         >
-          <option className="text-primary">pedido nuevo</option>
-          <option className="text-secondary">alistamiento</option>
-          <option className="text-info">verificando pago</option>
-          <option className="text-warning">en ruta</option>
-          <option id="reasonForRejection" className="text-danger">rechazado</option>
+          <option className="text-primary">Nuevo</option>
+          <option className="text-secondary">Estudio 1</option>
+          <option className="text-dark">Estudio 2</option>
+          <option className="text-muted">Presidente</option>
+          <option className="text-secondary">Comité 1</option>
+          <option className="text-info">Comité 2</option>
+          <option className="text-muted">Gerencia</option>
+          <option className="text-warning">Tesoreria</option>
+          <option id="reasonForRejection" className="text-danger">Rechazado</option>
           <option id="reasonForDelivery" className="text-success">entregado</option>
+          <option className="text-success">Finalizado</option>
         </select>
       ),
-      width: "175px",
+      width: "180px",
     },
     {
       id: "rowId",
       name: "No. identificación",
-      selector: (row) => row.rowId,
+      selector: (row) => row?.rowId,
       sortable: true,
-      width: "200px",
+      width: "160px",
     },
     {
       id: "nombre",
       name: "Nombre",
-      selector: (row) => row.nombre,
+      selector: (row) => row?.nombre,
       sortable: true,
-      width: "125px",
+      width: "250px",
+    },
+    {
+      id: "agencia",
+      name: "Agencia",
+      selector: (row) => row?.nombreAgencia,
+      sortable: true,
+      width: "270px",
+    },
+    {
+      id: "valorSolicitado",
+      name: "Valor solicitado",
+      selector: (row) => `$ ${Number(row?.valorSolicitado).toLocaleString("ES-es")}`,
+      sortable: true,
+      width: "170px",
+    },
+    {
+      id: "createdAt",
+      name: "Fecha solitud",
+      selector: (row) => row && new Date(row?.createdAt)?.toISOString()?.split("T")[0],
+      sortable: true,
+      width: "140px",
     },
   ];
 
@@ -101,64 +214,31 @@ function TableCreditos({ creditos, getAll, loading }) {
       );
   }, []);
 
-  /* const updateState = (e, credito) => {
-    const { value } = e.target;
-    console.log(value)
-    const optionId = e.target.selectedOptions[0].id
-    if (value === "rechazado" || value === "entregado") {
-      return Swal.fire({
-        input: "textarea",
-        inputLabel: "Nota",
-        inputPlaceholder:
-          "Ingrese aquí la razón del cambio de estado del pedido...",
-        inputAttributes: {
-          "aria-label": "Ingrese la nota acá.",
-        },
-        inputValidator: (value) => {
-          if (!value) {
-            return "¡En necesario escribir algo!";
-          }
-        },
-        showCancelButton: true,
-        confirmButtonText: "Confirmar",
-        confirmButtonColor: "#dc3545",
-        cancelButtonText: "Cancelar",
-      }).then(({ isConfirmed, value: input }) => {
-        if (isConfirmed && value) {
-          let consecutive = 1;
-          let text;
-          const absConsecutive = credito?.[optionId]?.split("\n");
-          if (absConsecutive) {
-            consecutive = absConsecutive;
-            const nextConsecutive =
-              parseInt(consecutive[consecutive?.length - 1].slice(0, 1)) + 1;
-            text = `${credito?.[optionId]}\n${nextConsecutive}. ${input} - ${new Date().toLocaleString("es-CO")}`;
-          } else {
-            text = `${consecutive}. ${input} - ${new Date().toLocaleString("es-CO")}`;
-          }
-          return updateOrder(credito.id, {
-            state: value,
-            [optionId]: text,
-          }).then((data) => {
-            console.log(data);
-            getAll();
-          });
-        }
-      });
-    } else {
-      return updateOrder(order.id, {
-        state: value,
-      }).then((data) => {
-        getAll();
-      });
-    }
-  }; */
+  const lookStudy = async ({row}) =>{
+    await findOneByCredito(row.id)
+    .then(({data})=>{
+      setSelectedCredito(data)
+    })
+    .catch(()=>{
+      findOneCredito(row.id)
+      .then(({data})=>{
+        setCredito(data)
+      })
+      .catch(()=>{
+        Swal.fire({
+          title:'¡ERROR!',
+          text:'Ha ocurrido un error al momento de extraer la información. Intentalo mas tarde.'
+        })
+      })
+    })
+  }
 
   return (
     <div
       className="d-flex flex-column rounded m-0 p-0"
-      style={{ height: "calc(100% - 60px)", width: "100%" }}
+      style={{ height: "calc(100vh - 120px)", width: "100%"}}
     >
+      {/* {JSON.stringify(creditos)} */}
       <DataTable
         className="bg-light text-center border border-2 h-100 p-0 m-0"
         columns={columns}
@@ -191,11 +271,11 @@ function TableCreditos({ creditos, getAll, loading }) {
         }
       />
 
-      {/* Modal pdf normal */}
-      {/* <Modal
+      {/* Modal cuando hay estudio pdf */}
+      <Modal
         size="lg"
-        show={Boolean(selectedOrder && !isMobile)}
-        onHide={() => setSelectedOrder(null)}
+        show={Boolean(selectedCredito && !isMobile)}
+        onHide={() => setSelectedCredito(null)}
       >
         <PDFViewer
           className="rounded"
@@ -205,10 +285,27 @@ function TableCreditos({ creditos, getAll, loading }) {
           }}
           showToolbar={true}
         >
-          <DocOrderPDF order={selectedOrder} />
+          <DocPaquetaCreditoPDF credito={selectedCredito} />
         </PDFViewer>
-      </Modal> */}
+      </Modal>
 
+      {/* modal cuando solo hay solicitud */}
+      <Modal
+        size="lg"
+        show={Boolean(credito && !isMobile)}
+        onHide={() => setCredito(null)}
+      >
+        <PDFViewer
+          className="rounded"
+          style={{
+            width: "100%",
+            height: "90vh",
+          }}
+          showToolbar={true}
+        >
+          <PDFFormSolicitud credito={credito} />
+        </PDFViewer>
+      </Modal>
     </div>
   );
 }

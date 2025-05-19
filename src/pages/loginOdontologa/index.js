@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect , useContext } from "react";
 import Navbar from "../../components/NavBeneficiarios";
 import User from '../../assets/user.png'
-import * as Bs from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -12,16 +11,12 @@ import AuthContext from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { GiSandsOfTime } from "react-icons/gi";
-
-import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import './styles.css'
 
 export default function LoginOdontologia(){
     const { login, isLoginLoading, hasLoginError, isLogged } = useUser();
     const navigate = useNavigate();
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [ entrando , setEntrando ] = useState(false);
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');

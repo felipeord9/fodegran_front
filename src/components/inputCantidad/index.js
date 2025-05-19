@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField, InputAdornment } from '@mui/material';
-import { styled } from '@mui/system';
 
 const formatNumber = (value) => {
   if (!value) return '';
@@ -27,20 +26,23 @@ const CurrencyInput = ({cantidad, setCantidad}) => {
   };
 
   return (
-    <TextField
-      id="standard-basic" 
-      label="Monto"
-      value={cantidad}
-      className="w-100 mt-1 me-3"
-      onChange={(e)=>handleChange(e)}
-      InputProps={{
-        startAdornment: <InputAdornment position="start">$</InputAdornment>,
-        inputMode: 'numeric',
-      }}
-      variant="standard"
-      autoComplete="off"
-      required
-    />
+    <div>
+      <TextField
+        id="standard-basic" 
+        label="Valor solicitado"
+        value={cantidad}
+        className="w-100 mt-1 me-3"
+        onChange={(e)=>handleChange(e)}
+        InputProps={{
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          inputMode: 'numeric',
+        }}
+        variant="standard"
+        autoComplete="off"
+        required
+      />
+      <label style={{display:'none'}}>{cantidad}</label>
+    </div>
   );
 };
 

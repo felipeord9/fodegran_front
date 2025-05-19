@@ -1,17 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import useUser from '../../hooks/useUser';
-import Navbar from '../../components/Navbar';
 import NavBitacora from '../../components/NavBitacora';
-import { sendRecovery } from '../../services/authService';
 import Logo from '../../assets/fodegran2.jpeg'
 import ModalFuncionario from '../../components/ModalFuncionario';
 import { GiSandsOfTime } from "react-icons/gi";
 import { findOneFuncionario } from '../../services/funcionarioService';
-import { RiArrowGoBackFill } from "react-icons/ri";
 import './styles.css'
-import { icon } from '@fortawesome/fontawesome-svg-core';
 
 export default function ValidarFuncionario() {
   const [info, setInfo] = useState({

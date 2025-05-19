@@ -23,7 +23,7 @@ export default function InputPassword({ id, label, password, setPassword }) {
           className="form-control form-control-sm shadow-sm"
           onChange={handleChange}
           style={{ paddingRight: 33 }}
-          minLength={8}
+          /* minLength={8} */
           autoComplete="off"
           required
         />

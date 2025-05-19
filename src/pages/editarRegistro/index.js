@@ -1,16 +1,8 @@
 import React , {useEffect, useState , useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import NavBitacora from "../../components/NavBitacora";
-import NavBeneficiario from "../../components/NavBeneficiarios";
-import Logo2 from '../../assets/fodegran.jpeg'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { fa } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaPhone } from "react-icons/fa6";
 import { GiSandsOfTime } from "react-icons/gi";
-import { createOdontologia , findByCedula , findOdontologia , updateOdontologia } from "../../services/odontologiaService";
+import { findByCedula , updateOdontologia } from "../../services/odontologiaService";
 import Swal from "sweetalert2";
 import AuthContext from "../../context/authContext";
 import './styles.css'

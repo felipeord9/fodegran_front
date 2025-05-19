@@ -42,16 +42,18 @@ export default function NavBitacora() {
           className="position-fixed bg-light shadow w-100 d-flex flex-row"
           style={{ fontSize: 11, left: 0, height: "55px", zIndex: 2 }}
         >
-          <div className="d-flex flex-row justify-content-between align-items-center w-100 h-100 px-4 shadow">
+          <div className="d-flex flex-row justify-content-between align-items-center w-100 h-100 shadow">
             <div
               id="logo-header"
-              className="d-flex flex-row align-items-center gap-2"
+              className="d-flex flex-row align-items-center"
             >
               <img
                 src={Logo}
                 width={150}
                 height={50}
                 className="navbar-img"
+                onClick={(e)=>navigate('/bitacora/creditos')}
+                style={{cursor:'pointer'}}
               />
             </div>
           </div>
@@ -85,6 +87,38 @@ export default function NavBitacora() {
                   <div>
                     <li style={{ cursor: "pointer" }} className="border-bottom">
                       <Link
+                        to="/solicitud/credito"
+                        className="text-decoration-none"
+                      >
+                        <p 
+                          className="dropdown-item fw-bold m-0"
+                          style={{
+                            backgroundColor:ruta==='/solicitud/credito' ? '#0101b5' : 'transparent',
+                            color:ruta ==='/solicitud/credito' ? 'white' : 'black',
+                          }}
+                        >
+                          CRÉDITO NUEVO
+                        </p>
+                      </Link>
+                    </li>
+                    {/* <li style={{ cursor: "pointer" }} className="border-bottom">
+                      <Link
+                        to="/bitacora/creditos"
+                        className="text-decoration-none"
+                      >
+                        <p 
+                          className="dropdown-item fw-bold m-0"
+                          style={{
+                            backgroundColor:ruta==='/bitacora/creditos' ? '#0101b5' : 'transparent',
+                            color:ruta ==='/bitacora/creditos' ? 'white' : 'black',
+                          }}
+                        >
+                           BITÁCORA CRÉDITOS
+                        </p>
+                      </Link>
+                    </li> */}
+                    <li style={{ cursor: "pointer" }} className="border-bottom">
+                      <Link
                         to="/registros/odontologia"
                         className="text-decoration-none"
                       >
@@ -95,59 +129,28 @@ export default function NavBitacora() {
                             color:ruta ==='/registros/odontologia' ? 'white' : 'black',
                           }}
                         >
-                          REGISTROS ODONTOLOGIA
+                          BITÁCORA ODONTOLOGIA
                         </p>
                       </Link>
                     </li>
-                    <li style={{ cursor: "pointer" }} className="border-bottom">
-                      <Link
-                        to="/validar/funcionario"
-                        className="text-decoration-none"
-                        
-                      >
-                        <p 
-                          className="dropdown-item fw-bold m-0"
-                          style={{
-                            backgroundColor:ruta==='/validar/funcionario' ? '#0101b5' : 'transparent',
-                            color:ruta ==='/validar/funcionario' ? 'white' : 'black',
-                          }}
-                        >
-                          VALIDAR EMPLEADO
-                        </p>
-                      </Link>
-                    </li>
-                    {user.role === 'admin' &&
-                    <div>
-                      <li style={{ cursor: "pointer" }} className="border-bottom">
-                        <Link
-                          to="/funcionarios"
-                          className="text-decoration-none"
-                        >
-                          <p 
-                            className="dropdown-item fw-bold m-0"
-                            style={{backgroundColor:ruta==='/funcionarios' ? '#0101b5' : 'transparent',
-                              color:ruta ==='/funcionarios' ? 'white' : 'black',
-                              /* borderRadius:15 */
-                            }}
-                          >
-                            EMPLEADOS
-                          </p>
-                        </Link>
-                      </li>
-                    </div>
-                    }
-                    {/* <li style={{ cursor: "pointer" }} className="border-bottom">
-                    <Link
-                      to="/bitacora"
-                      className="text-decoration-none"
-                    >
-                      <p className="dropdown-item fw-bold m-0">
-                        REGISTROS CREDITOS
-                      </p>
-                    </Link>
-                    </li> */}
                   </div>
                   }
+                  <li style={{ cursor: "pointer" }} className="border-bottom">
+                    <Link
+                      to="/bitacora/creditos"
+                      className="text-decoration-none"
+                    >
+                      <p 
+                        className="dropdown-item fw-bold m-0"
+                        style={{
+                          backgroundColor:ruta==='/bitacora/creditos' ? '#0101b5' : 'transparent',
+                          color:ruta ==='/bitacora/creditos' ? 'white' : 'black',
+                        }}
+                      >
+                        BITÁCORA CRÉDITOS
+                      </p>
+                    </Link>
+                  </li>
                   <li style={{ cursor: "pointer" }} className="border-bottom">
                     <Link
                       to="/cambiar/contrasena"
@@ -165,7 +168,10 @@ export default function NavBitacora() {
                     </Link>
                   </li>
                   <li style={{ cursor: "pointer" }} onClick={(e) => logout()}>
-                    <p className="d-flex justify-content-center align-items-center gap-2 dropdown-item fw-bold text-danger m-0">
+                    <p 
+                      className="d-flex justify-content-center bg-danger align-items-center gap-2 dropdown-item fw-bold m-0"
+                      style={{color:'white', borderEndStartRadius:5, borderEndEndRadius:5}}
+                    >
                       CERRAR SESIÓN
                       <FiIcons.FiLogOut />
                     </p>

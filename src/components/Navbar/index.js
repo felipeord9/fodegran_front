@@ -1,18 +1,17 @@
-import { useState, useContext , useEffect } from "react";
+import { useState , useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as FiIcons from "react-icons/fi";
 import * as FaIcons from "react-icons/fa";
-import AuthContext from "../../context/authContext";
-import useUser from "../../hooks/useUser";
 import { NavBarData } from "./NavbarData";
+import { useParams } from "react-router-dom";
 import Logo from "../../assets/fodegran.jpeg";
 import "./styles.css";
 
 export default function Navbar() {
-  const { isLogged, logout } = useUser();
   const [showSideBar, setShowSidebar] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  //constante para guardar el valor del parametro
+  const { token } = useParams();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -47,96 +46,97 @@ export default function Navbar() {
                 style={{ height:50, width:180 , userSelect:'none'}}
               />              
             </div>
-            <nav className="navbar p-0 m-0">
-              <span className="menu-bars m-0 menu-toggle ps-2" style={{ cursor: "pointer"}}>
-                <FaIcons.FaBars
-                  className="pt-0 mt-0"
-                  onClick={(e) => (handleMenuToggle(e))}
-                  style={{height:60,width:30, userSelect:'none',color:'#0101b5'}}
-                  />
-                </span>
-                {/* Botones en línea */}
-                <div className={`buttons ${menuOpen ? 'hidden' : ''}`}>
-                  <div className="buttons justify-content-center h-100 text-align-center">         
-                    {/* <button 
-                      className="pt-2 mt-1 buttons" 
-                      style={{backgroundColor:ruta==='/afiliacion' ? '#0101b5' : 'transparent',
-                              color:ruta ==='/afiliacion' ? 'white' : 'black',
-                              borderRadius:35
-                            }}
-                      onClick={(e)=>(navigate('/afiliacion'), setRuta('/afiliacion'))}
-                      disabled={ruta==='/' ? true:false}
-                    >
-                      Afiliación
-                    </button>
-                    <button 
-                      className="pt-2 mt-1 ms-1 buttons" 
-                      style={{backgroundColor:ruta==='/Solicitud/credito' ? '#0101b5' : 'transparent',
-                              color:ruta ==='/Solicitud/credito' ? 'white' : 'black',
-                              borderRadius:35
-                            }}
-                      onClick={(e)=>(navigate('/Solicitud/credito'), setRuta('/Solicitud/credito'))}
-                    >
-                      Solicitar Crédito
-                    </button> */}
-                    <button 
-                      className="pt-2 mt-1 ms-1 buttons" 
-                      style={{backgroundColor:ruta==='/odontologia' ? '#0101b5' : 'transparent',
-                              color:ruta ==='/odontologia' ? 'white' : 'black',
-                              borderRadius:35
-                            }}
-                      onClick={(e)=>(navigate('/odontologia'), setRuta('/odontologia'))}
-                    >
-                      Odontología
-                    </button>
-                    <button 
-                      className="pt-2 mt-1 ms-1 buttons bot-inicio" 
-                      style={{backgroundColor:'green',
-                              color:'white',
-                              borderRadius:35
-                            }}
-                      onClick={(e)=>(navigate('/login'), setRuta('/login'))}
-                    >
-                      Iniciar sesión
-                    </button>
+            {!token &&
+              <nav className="navbar p-0 m-0">
+                <span className="menu-bars m-0 menu-toggle ps-2" style={{ cursor: "pointer"}}>
+                  <FaIcons.FaBars
+                    className="pt-0 mt-0"
+                    onClick={(e) => (handleMenuToggle(e))}
+                    style={{height:60,width:30, userSelect:'none',color:'#0101b5'}}
+                    />
+                  </span>
+                  {/* Botones en línea */}
+                  <div className={`buttons ${menuOpen ? 'hidden' : ''}`}>
+                    <div className="buttons justify-content-center h-100 text-align-center">         
+                      {/* <button 
+                        className="pt-2 mt-1 buttons" 
+                        style={{backgroundColor:ruta==='/afiliacion' ? '#0101b5' : 'transparent',
+                                color:ruta ==='/afiliacion' ? 'white' : 'black',
+                                borderRadius:35
+                              }}
+                        onClick={(e)=>(navigate('/afiliacion'), setRuta('/afiliacion'))}
+                        disabled={ruta==='/' ? true:false}
+                      >
+                        Afiliación
+                      </button>
+                      <button 
+                        className="pt-2 mt-1 ms-1 buttons" 
+                        style={{backgroundColor:ruta==='/Solicitud/credito' ? '#0101b5' : 'transparent',
+                                color:ruta ==='/Solicitud/credito' ? 'white' : 'black',
+                                borderRadius:35
+                              }}
+                        onClick={(e)=>(navigate('/Solicitud/credito'), setRuta('/Solicitud/credito'))}
+                      >
+                        Solicitar Crédito
+                      </button> */}
+                      <button 
+                        className="pt-2 mt-1 ms-1 buttons" 
+                        style={{backgroundColor:ruta==='/odontologia' ? '#0101b5' : 'transparent',
+                                color:ruta ==='/odontologia' ? 'white' : 'black',
+                                borderRadius:35
+                              }}
+                        onClick={(e)=>(navigate('/odontologia'), setRuta('/odontologia'))}
+                      >
+                        Odontología
+                      </button>
+                      <button 
+                        className="pt-2 mt-1 ms-1 buttons bot-inicio" 
+                        style={{backgroundColor:'green',
+                                color:'white',
+                                borderRadius:35
+                              }}
+                        onClick={(e)=>(navigate('/login'), setRuta('/login'))}
+                      >
+                        Iniciar sesión
+                      </button>
+                    </div>
                   </div>
-                </div>
-                {/* Menú desplegable en dispositivos móviles */}
-                {/* <div className={`menu ${menuOpen ? 'visible' : ''}`}> */}
-                <div className={`nav-menu ${menuOpen ? "active" : ""}`}
-                  style={{width:'auto',backgroundColor:'white',color:'white'}}
-                >
-                  <ul
-                    className="ms-0 ps-0 d-flex flex-column w-100"
-                    onClick={(e) => setShowSidebar(!showSideBar)}
-                    style={{width:240, fontSize:18}}
+                  {/* Menú desplegable en dispositivos móviles */}
+                  {/* <div className={`menu ${menuOpen ? 'visible' : ''}`}> */}
+                  <div className={`nav-menu ${menuOpen ? "active" : ""}`}
+                    style={{width:'auto',backgroundColor:'white',color:'white'}}
                   >
-                    {NavBarData.map((item, index) => {
-                        return (
-                          <li key={index} className={item.cName} style={{ fontSize:20}}>
-                            <Link className="" to={item.path} style={{backgroundColor: ruta === item.path ? '#0101b5':'transparent', color: ruta === item.path ? 'white' : 'black' }}>
-                              {item.icon}
-                              <span style={{fontSize:18}}>{item.title}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
                     <ul
-                      className="nav-menu-items d-flex flex-column ms-0 ps-0"
+                      className="ms-0 ps-0 d-flex flex-column w-100"
                       onClick={(e) => setShowSidebar(!showSideBar)}
+                      style={{width:240, fontSize:18}}
                     >
-                      <li className="w-100 d-flex justify-content-center text-align-center align-items-center">
-                        <Link style={{backgroundColor:'green',color:'white',textDecoration:'none'}} to={'/login'}/* onClick={(e)=>navigate('/login')} */ className="fw-bold nav-inicio" variant="contained">Iniciar sesión</Link>
-                      </li>
-                      <li className="text-center ">
-                        <span className="m-0" style={{color:'GrayText'}}>FodeGran</span>
-                      </li>
-                    </ul>
-                  </div>
-                {/* </div> */}
+                      {NavBarData.map((item, index) => {
+                          return (
+                            <li key={index} className={item.cName} style={{ fontSize:20}}>
+                              <Link className="" to={item.path} style={{backgroundColor: ruta === item.path ? '#0101b5':'transparent', color: ruta === item.path ? 'white' : 'black' }}>
+                                {item.icon}
+                                <span style={{fontSize:18}}>{item.title}</span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <ul
+                        className="nav-menu-items d-flex flex-column ms-0 ps-0"
+                        onClick={(e) => setShowSidebar(!showSideBar)}
+                      >
+                        <li className="w-100 d-flex justify-content-center text-align-center align-items-center">
+                          <Link style={{backgroundColor:'green',color:'white',textDecoration:'none'}} to={'/login'}/* onClick={(e)=>navigate('/login')} */ className="fw-bold nav-inicio" variant="contained">Iniciar sesión</Link>
+                        </li>
+                        <li className="text-center ">
+                          <span className="m-0" style={{color:'GrayText'}}>FodeGran</span>
+                        </li>
+                      </ul>
+                    </div>
+                  {/* </div> */}
               </nav>
-            
+            }
           </div>
         </div>
   );

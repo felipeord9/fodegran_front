@@ -1,26 +1,21 @@
 import { useState, useCallback, useEffect , useContext } from "react";
 import Navbar from "../../components/Navbar";
 import User from '../../assets/user.png'
-import * as Bs from "react-icons/bs";
-import { FaLock } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser , faLock } from '@fortawesome/free-solid-svg-icons';
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import Checkbox from '@mui/material/Checkbox';
 import useUser from "../../hooks/useUser";
 import Swal from "sweetalert2";
 import { GiSandsOfTime } from "react-icons/gi";
 import AuthContext from "../../context/authContext";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import './styles.css'
 
 export default function Login(){
-    const { login, isLoginLoading, hasLoginError, isLogged } = useUser();
+    const { login, hasLoginError, isLogged } = useUser();
     const navigate = useNavigate();
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [ entrando , setEntrando ] = useState(false);
 
     const [ email, setEmail ] = useState('');
@@ -28,13 +23,12 @@ export default function Login(){
     const [ showPassword, setShowPassword ] = useState(false)
 
     useEffect(() => {
-        if (isLogged && user.role==='admin') navigate('/registros/odontologia')/* navigate('/bitacora') */
-        /* if (isLogged && user.role==='odontologa' ||
-            isLogged && user.role==='contabilidad' ||
-            isLogged && user.role==='recursos humanos' ||
-            isLogged && user.role==='auxiliar'
-        )navigate('/bitacora'); */
-        if (isLogged && user.role==='odontologa' || isLogged && user.role==='auxiliar' ) navigate('/registros/odontologia')
+        if (isLogged && (user.role==='odontologa')){
+            navigate('/registros/odontologia')
+        } else
+        if (isLogged && (user.role==='tesoreria' || isLogged && user.role==='presidente' || isLogged && user.role==='comite1' || isLogged && user.role==='comite2' || isLogged && user.role==='estudio' || isLogged && user.role==='auxiliar' || isLogged && user.role==='admin' || isLogged && user.role==='gerencia')){
+            navigate('/bitacora/creditos')
+        } 
     }, [isLogged, navigate]);
 
     const handleLogin = async (e) => {
@@ -103,7 +97,7 @@ export default function Login(){
                             className="input-with-icon"
                             onChange={handleChange}
                             placeholder="⁕⁕⁕⁕⁕⁕⁕⁕⁕⁕"
-                            minLength={8}
+                            /* minLength={8} */
                             autoComplete="off"
                             required
                         />

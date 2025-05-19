@@ -2,12 +2,12 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as HiIcons from "react-icons/hi";
 import AuthContext from "../../context/authContext";
-import { findOdontologia } from "../../services/odontologiaService";
+import { findCreditos } from '../../services/creditosServices';
 import NavBitacora from "../../components/NavBitacora";
-import TableRegistros from "../../components/TableRegistros";
+import TableCreditos from "../../components/TableCreditos";
 import './styles.css'
 
-export default function RegistrosOdontologia() {
+export default function BitacoraCreditos() {
   const { user } = useContext(AuthContext);
   const [registros, setRegistros] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
@@ -23,20 +23,46 @@ export default function RegistrosOdontologia() {
 
   const getAllRegistros = () => {
     setLoading(true)
-    findOdontologia()
+    findCreditos()
       .then(({ data }) => {
-        if(user.role==='odontologa'){
-          const filtro = data.filter((elem)=>{
-            if(elem.estado !== 'NUEVO'){
-              return elem
-            }
-          })
-          setRegistros(filtro);
-          setSuggestions(filtro);
+        let datos = data;
+        if(user.role === 'estudio'){
+          const result = datos.filter((item)=>item.estado === 'Estudio 1')
+          setRegistros(result);
+          setSuggestions(result);
           setLoading(false)
-        }else{
+        }else if(user.role === 'comite1'){
+          const result = datos.filter((item)=>item.estado === 'Comité 1')
+          setRegistros(result);
+          setSuggestions(result);
+          setLoading(false)
+        }else if(user.role === 'comite2'){
+          const result = datos.filter((item)=>item.estado === 'Comité 2')
+          setRegistros(result);
+          setSuggestions(result);
+          setLoading(false)
+        }else if(user.role === 'presidente'){
+          const result = datos.filter((item)=>item.estado === 'Presidente')
+          setRegistros(result);
+          setSuggestions(result);
+          setLoading(false)
+        }else if(user.role === 'gerencia'){
+          const result = datos.filter((item)=>item.estado === 'Gerencia')
+          setRegistros(result);
+          setSuggestions(result);
+          setLoading(false)
+        }else if(user.role === 'tesoreria'){
+          const result = datos.filter((item)=>item.estado === 'Tesoreria')
+          setRegistros(result);
+          setSuggestions(result);
+          setLoading(false)
+        }else if(user.role === 'auxiliar' || user.role === 'admin'){
           setRegistros(data);
           setSuggestions(data);
+          setLoading(false)
+        }else{
+          setRegistros(null);
+          setSuggestions(null);
           setLoading(false)
         }
       })
@@ -50,8 +76,8 @@ export default function RegistrosOdontologia() {
     if(value !== "") {
       const filteredRegistro = registros.filter((elem) => {
         if(
-          elem.idCotizante.includes(value) ||
-          elem.nameCotizante.toUpperCase().includes(value.toUpperCase()) 
+          (elem?.rowId.toString()).includes(value) ||
+          elem?.nombre?.toUpperCase().includes(value.toUpperCase()) 
         ) {
           return elem
         }
@@ -85,28 +111,21 @@ export default function RegistrosOdontologia() {
               placeholder="Buscar registro (ID ó nombre)"
               onChange={searchRegistro/* (e) => setSearch(e.target.value) */}
             />
-            {/* <button
-              type="submit"
-              className="position-absolute btn btn-sm"
-              style={{ right: 0 }}
-              onClick={(e)=>getAllRegistros()}
-            >
-                {search.length ? <FaIcons.FaSearch /> : <VscIcons.VscDebugRestart />}
-            </button> */}
           </form>
-          {user.role !=='odontologa' &&
+          {(user.role ==='auxiliar' || user.role === 'admin') &&
             <button
               title="Nuevo registro"
               className="new align-items-center text-nowrap text-light gap-1 h-100"
-              onClick={(e) => navigate("/odontologia")}
+              onClick={(e) => navigate("/solicitud/credito")}
               style={{backgroundColor:'#0101b5' , color:'white' , borderRadius:10}}
             >
-              Nuevo registro
+              Nuevo crédito
               <HiIcons.HiDocumentAdd style={{ width: 15, height: 15 }} />
             </button>
           }
         </div>
-        <TableRegistros ref={refTable} registros={suggestions} getAll={getAllRegistros} loading={loading} />
+        {/* {JSON.stringify(suggestions)} */}
+        <TableCreditos ref={refTable} creditos={suggestions} getAll={getAllRegistros} loading={loading} />
       </div>
     </div>
     </div>

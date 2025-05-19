@@ -1,8 +1,6 @@
 import React , {useEffect, useState} from "react"
 import NavBeneficiario from "../../components/NavBeneficiarios";
 import Logo2 from '../../assets/fodegran.jpeg'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { fa } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -64,17 +62,7 @@ export default function Odontologia (){
     },[])
 
     const [enviando, setEnviando] = useState(false);
-
-    const handleInstagramClick = () => {
-        // Redirigir a la página de Instagram
-        window.location.href = 'https://www.instagram.com/oncaabox?igsh=ejRxZndjdmZlNW5o';
-    };
-    const handleFacebookClick = () => {
-        const correo = 'asistentefodegran@gmail.com';
-        window.location.href = `mailto:${correo}`;
-        // Redirigir a la página de facebook
-        /* window.location.href = 'https://www.facebook.com/oncaabox?mibextid=ZbWKwL'; */
-    };
+    
     const correo = 'asistentefodegran@gmail.com';
     const handleClick = () => {
         window.location.href = `mailto:${correo}`;

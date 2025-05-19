@@ -33,7 +33,7 @@ export default function ChangePassword() {
           showConfirmButton: false,
           timer: 2500,
         }).then(() => {
-          navigate("/registros/odontologia");
+          navigate("/bitacora/creditos");
         });
       })
       .catch((error) => {

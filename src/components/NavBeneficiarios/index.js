@@ -1,26 +1,16 @@
 import { useState, useContext , useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as FiIcons from "react-icons/fi";
 import * as FaIcons from "react-icons/fa";
 import AuthContext from "../../context/authContext";
-import useUser from "../../hooks/useUser";
 import { NavBarData } from "./NavbarData";
 import Logo from "../../assets/fodegran.jpeg";
 import "./styles.css";
 
 export default function NavBeneficiario() {
-  const { isLogged, logout } = useUser();
   const [showSideBar, setShowSidebar] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleClickImg = (e) => {
-    if(user.role==='aprobador'){
-      return navigate('/solicitudes')
-    }else{
-      return navigate('/inicio')
-    }
-  }
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Función para manejar el clic en el botón del menú

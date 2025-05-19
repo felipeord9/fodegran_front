@@ -1,0 +1,9 @@
+.new{
+    display: flex;
+}
+
+@media screen and (max-width: 1060px) {
+    .new{
+        display: none;
+    }
+}

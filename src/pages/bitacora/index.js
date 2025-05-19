@@ -1,17 +1,12 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as HiIcons from "react-icons/hi";
-import * as FaIcons from "react-icons/fa";
-import * as VscIcons from "react-icons/vsc";
-import AuthContext from "../../context/authContext";
-import { MdPriceChange } from "react-icons/md";
 import { findCreditos } from "../../services/creditosServices";
 import NavBitacora from "../../components/NavBitacora";
 import TableCreditos from "../../components/TableCreditos";
 import './styles.css'
 
 export default function Bitacora() {
-  const { user } = useContext(AuthContext);
   const [creditos, setCreditos] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
