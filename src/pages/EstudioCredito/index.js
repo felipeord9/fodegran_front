@@ -310,7 +310,7 @@ export default function EstudioCredito (){
                         id: data.id
                     }
                     const update = {
-                        estado: 'Estudio de crédito Auxiliar'
+                        estado: 'Estudio 2'
                     }
                     updateCredito(search.id, update);
                     mailAuxiliar(item)

@@ -433,7 +433,7 @@ export default function PaqueteCredito() {
       estado: 'Rechazado',
       motivo: motivo ? motivo.toUpperCase() : '',
     }
-    if(user.role === 'Presidente' && suggestions.credito.estado === 'Presidente'){
+    if(user.role === 'presidente' && suggestions.credito.estado === 'Presidente'){
       updateCredito(suggestions.credito.id,body)
         .then(()=>{
           const info = {
@@ -845,8 +845,11 @@ export default function PaqueteCredito() {
             {showEstudio && (
               <AllPackEstudio search={suggestions} />
             )}
+              {/* <AllPackSolicitud search={suggestions.credito} /> */}
             {showSolicitud && (
-              <AllPackSolicitud search={suggestions.credito} />
+              <div>
+                <CarpetaArchivoLink carpeta={`${format(new Date(suggestions.credito.createdAt), 'yyyy-MM-dd')}_${suggestions.credito.nombre}`} archivo={`solicitud_credito.pdf`}/>
+              </div>
             )}
             {showSimulador && (
               <div>

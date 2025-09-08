@@ -38,6 +38,8 @@ export default function SolicitudCredito (){
     const [files, setFiles] = useState({
         simuladorCredito: null,
         relacionCuentas: null,
+        libranza: null,
+        solicitudCredito: null,
     });
     
     const handleFileChange = (fieldName, e) => {
@@ -971,6 +973,32 @@ export default function SolicitudCredito (){
                                         style={{backgroundColor:'#f3f3f3'}}
                                         className="form-control form-control-sm border border-5 rounded-3"
                                         onChange={(e)=>handleFileChange('relacionCuentas',e)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row row-cols-sm-2 mt-1">
+                                <div className="d-flex flex-column align-items-start">
+                                    <label>Solicitud de crédito</label>
+                                    <input
+                                        id="solicitud"
+                                        type="file"
+                                        required
+                                        accept=".png,.jpg,.jpeg,.txt,.pdf"
+                                        onChange={(e)=>handleFileChange('solicitudCredito',e)}
+                                        style={{backgroundColor:'#f3f3f3'}}
+                                        className="form-control form-control-sm border border-5 rounded-3"
+                                    />
+                                </div>
+                                <div className="d-flex flex-column align-items-start">
+                                    <label className="">Libranza</label>
+                                    <input
+                                        id="libranza"
+                                        type="file"
+                                        accept=".png,.jpg,.jpeg,.txt,.pdf"
+                                        required
+                                        style={{backgroundColor:'#f3f3f3'}}
+                                        className="form-control form-control-sm border border-5 rounded-3"
+                                        onChange={(e)=>handleFileChange('libranza',e)}
                                     />
                                 </div>
                             </div>

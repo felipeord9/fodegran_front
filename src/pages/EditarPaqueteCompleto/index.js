@@ -843,16 +843,19 @@ export default function EditarPaqueteCredito() {
             {showSolicitud && (
               <AllPackSolicitud search={suggestions.credito} />
             )}
+              {/* <AllPackEstudio search={suggestions} /> */}
             {showEstudio && (
-              <AllPackEstudio search={suggestions} />
+              <div>
+                <CarpetaArchivoLink carpeta={`${format(new Date(suggestions?.credito.createdAt), 'yyyy-MM-dd')}_${suggestions.credito.nombre}`} archivo={`solicitud_credito.pdf`}/>
+              </div>
             )}
             {showSimulador && (
               <div>
-                <CarpetaArchivoLink carpeta={`${format(new Date(suggestions.credito.createdAt), 'yyyy-MM-dd')}_${suggestions.credito.nombre}`} archivo={`simulador_credito.pdf`}/>
+                <CarpetaArchivoLink carpeta={`${format(new Date(suggestions?.credito.createdAt), 'yyyy-MM-dd')}_${suggestions.credito.nombre}`} archivo={`simulador_credito.pdf`}/>
               </div>
             )}
             {showRelacion && (
-              <CarpetaArchivoLink carpeta={`${format(new Date(suggestions.credito.createdAt), 'yyyy-MM-dd')}_${suggestions.credito.nombre}`} archivo={`relacion_cuentas_y_terceros.pdf`}/>
+              <CarpetaArchivoLink carpeta={`${format(new Date(suggestions?.credito.createdAt), 'yyyy-MM-dd')}_${suggestions.credito.nombre}`} archivo={`relacion_cuentas_y_terceros.pdf`}/>
             )}
           </div>
 

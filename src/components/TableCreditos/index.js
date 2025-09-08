@@ -182,7 +182,7 @@ function TableCreditos({ creditos, getAll, loading }) {
     {
       id: "agencia",
       name: "Agencia",
-      selector: (row) => row?.nombreAgencia,
+      selector: (row) => row?.ciudadAgencia,
       sortable: true,
       width: "270px",
     },
